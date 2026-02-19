@@ -9,9 +9,14 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@getpara/evm-wallet-connectors": "2.11.0",
+    "@getpara/react-sdk": "2.11.0",
+    "@tanstack/react-query": "5.90.21",
     "next": "16.1.6",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "viem": "2.45.3",
+    "wagmi": "2.19.5"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

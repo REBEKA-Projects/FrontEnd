@@ -25,7 +25,6 @@ export function PropertyCard({
 }: PropertyCardProps) {
     return (
         <div className="glass-card-static p-6 md:p-8">
-            {/* Header */}
             <div className="flex flex-col gap-4 mb-6">
                 <div>
                     <h3 className="text-2xl md:text-3xl font-bold text-white mb-1">{name}</h3>
@@ -47,7 +46,6 @@ export function PropertyCard({
                 </div>
             </div>
 
-            {/* Metrics Grid */}
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
                 {metrics.map((metric, index) => (
                     <div
@@ -62,7 +60,6 @@ export function PropertyCard({
                 ))}
             </div>
 
-            {/* Token Info */}
             <div className="border-t border-[rgba(255,255,255,0.08)] pt-5">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div>
@@ -77,7 +74,6 @@ export function PropertyCard({
                 </div>
             </div>
 
-            {/* Property Type */}
             <div className="mt-4 text-sm text-[--rebeka-text-muted]">
                 {type}
             </div>

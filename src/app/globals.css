@@ -257,26 +257,7 @@ body {
   border-color: rgba(40, 160, 240, 0.5);
 }
 
-.badge-success {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
-  border-radius: 8px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  background: var(--rebeka-success-dim);
-  color: var(--rebeka-success);
-  border: 1px solid rgba(0, 255, 163, 0.3);
-  transition: all 0.3s ease;
-}
 
-.badge-success:hover {
-  background: rgba(0, 255, 163, 0.25);
-  border-color: rgba(0, 255, 163, 0.5);
-}
 
 /* ═══════════════════════════════════════════════════════════════════════════
    Buttons
@@ -430,40 +411,7 @@ body {
   }
 }
 
-/* Scroll-triggered animations */
-@keyframes slide-up-fade {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
 
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-on-scroll {
-  opacity: 0;
-  animation: slide-up-fade 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-  animation-play-state: paused;
-}
-
-.animate-on-scroll.is-visible {
-  animation-play-state: running;
-}
-
-@keyframes float {
-
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-
-  50% {
-    transform: translateY(-12px);
-  }
-}
 
 .animate-fade-in-up {
   animation: fade-in-up 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
@@ -473,9 +421,7 @@ body {
   animation: fade-in 0.4s ease-out forwards;
 }
 
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
+
 
 .animate-pulse-glow {
   animation: subtle-glow 4s ease-in-out infinite;
@@ -494,17 +440,7 @@ body {
   animation-delay: 0.3s;
 }
 
-.stagger-4 {
-  animation-delay: 0.4s;
-}
 
-.stagger-5 {
-  animation-delay: 0.5s;
-}
-
-.stagger-6 {
-  animation-delay: 0.6s;
-}
 
 .delay-100 {
   animation-delay: 0.1s;
@@ -518,13 +454,7 @@ body {
   animation-delay: 0.3s;
 }
 
-.delay-400 {
-  animation-delay: 0.4s;
-}
 
-.delay-500 {
-  animation-delay: 0.5s;
-}
 
 /* ═══════════════════════════════════════════════════════════════════════════
    Noise Texture Overlay
