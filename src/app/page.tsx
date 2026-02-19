@@ -5,8 +5,6 @@ import { GlassCard } from '@/components/GlassCard';
 export default function Home() {
   return (
     <div className="relative min-h-screen">
-      {/* Background Effects */}
-      {/* Subtle Background Orb */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         <div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] rounded-full"
@@ -18,7 +16,6 @@ export default function Home() {
 
       <Header />
 
-      {/* Hero Section */}
       <section className="relative z-10 min-h-screen flex items-center justify-center px-6 pt-20">
         <div className="max-w-4xl mx-auto text-center">
           <div className="opacity-0 animate-fade-in-up">
@@ -54,7 +51,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Legal Value Proposition */}
       <section id="legal" className="relative z-10 py-24 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
@@ -67,9 +63,8 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Institutional Feature Strip */}
+
           <div className="space-y-4">
-            {/* Feature 01 */}
             <div className="group flex items-center gap-6 p-6 bg-[#12131A] rounded-2xl border border-[rgba(255,255,255,0.04)] hover:border-[rgba(255,255,255,0.08)] transition-all duration-300 opacity-0 animate-fade-in-up stagger-1">
               <span className="text-[--rebeka-text-muted] font-mono text-sm shrink-0">01</span>
               <div className="w-10 h-10 rounded-lg bg-[--rebeka-primary-dim] flex items-center justify-center shrink-0">
@@ -85,7 +80,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Feature 02 */}
             <div className="group flex items-center gap-6 p-6 bg-[#12131A] rounded-2xl border border-[rgba(255,255,255,0.04)] hover:border-[rgba(255,255,255,0.08)] transition-all duration-300 opacity-0 animate-fade-in-up stagger-2">
               <span className="text-[--rebeka-text-muted] font-mono text-sm shrink-0">02</span>
               <div className="w-10 h-10 rounded-lg bg-[--rebeka-primary-dim] flex items-center justify-center shrink-0">
@@ -101,7 +95,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Feature 03 */}
             <div className="group flex items-center gap-6 p-6 bg-[#12131A] rounded-2xl border border-[rgba(255,255,255,0.04)] hover:border-[rgba(255,255,255,0.08)] transition-all duration-300 opacity-0 animate-fade-in-up stagger-3">
               <span className="text-[--rebeka-text-muted] font-mono text-sm shrink-0">03</span>
               <div className="w-10 h-10 rounded-lg bg-[--rebeka-primary-dim] flex items-center justify-center shrink-0">
@@ -120,7 +113,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Génesis Puebla Showcase */}
       <section id="projects" className="relative z-10 py-24 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="mb-12">
@@ -153,7 +145,6 @@ export default function Home() {
             contractAddress="0x...Arbitrum Stylus"
           />
 
-          {/* Additional Project Info */}
           <div className="grid md:grid-cols-2 gap-6 mt-6">
             <GlassCard className="p-6" hover={false}>
               <h4 className="text-sm font-semibold text-[--rebeka-text-muted] uppercase tracking-wider mb-4">
@@ -210,7 +201,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Connect Section */}
       <section id="connect" className="relative z-10 py-24 px-6">
         <div className="max-w-2xl mx-auto text-center">
           <GlassCard className="p-8 md:p-12" hover={false}>
@@ -239,7 +229,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="relative z-10 py-12 px-6 border-t border-[rgba(255,255,255,0.05)]">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
