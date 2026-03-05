@@ -119,7 +119,7 @@ export const ParaLogin = () => {
                     {localError && (
                         <div className="w-full p-4 bg-red-500/10 border border-red-500/20 rounded-xl space-y-3">
                             <Typography variant="caption" className="text-red-400 font-mono text-[10px] block uppercase">
-                                [ERROR]: {localError}
+                                [ERROR]: {typeof localError === 'object' ? JSON.stringify(localError) : String(localError)}
                             </Typography>
                             <button
                                 onClick={() => setLocalError(null)}

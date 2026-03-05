@@ -51,7 +51,7 @@ export function useAutoRegister() {
             } else if (err instanceof Error) {
                 msg = err.message;
             }
-            setError(msg);
+            setError(String(msg));
             console.error('Auto-register error:', err);
             throw err;
         }
