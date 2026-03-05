@@ -43,7 +43,8 @@ export const ParaLogin = () => {
                 } catch (err: unknown) {
                     const errorMessage = err instanceof Error ? err.message : String(err);
                     console.error("Identity Sync Error:", errorMessage);
-                    setLocalError(registerError || "IDENTITY_SYNC_FAILURE");
+                    // Use the extracted string message instead of the hook's error state which might be delayed or an object
+                    setLocalError(errorMessage || "IDENTITY_SYNC_FAILURE");
                     setPhase('idle');
                 }
             };
