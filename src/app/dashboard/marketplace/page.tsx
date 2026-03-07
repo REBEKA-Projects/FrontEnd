@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Typography } from "@/components/atoms/Typography";
+import { Typography } from "@/components/atoms";
 import { ArrowRight, ShieldCheck } from "lucide-react";
 import { KNOWN_TOKENS } from "@/lib/config/tokens";
 

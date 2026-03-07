@@ -8,8 +8,7 @@ import {
     useStripe,
     useElements,
 } from "@stripe/react-stripe-js";
-import { Typography } from "@/components/atoms/Typography";
-import { GlassCard } from "@/components/GlassCard";
+import { Typography, GlassCard } from "@/components/atoms";
 import { Lock, X, ShieldCheck, Loader2, ArrowRight } from "lucide-react";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "pk_test_TYooMQauvdEDq54NiTphI7jx");

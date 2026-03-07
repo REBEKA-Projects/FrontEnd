@@ -1,7 +1,7 @@
 "use client";
 
 import { useUserData } from "@/hooks/useUserData";
-import { Typography } from "@/components/atoms/Typography";
+import { Typography } from "@/components/atoms";
 import { Shield, User, Settings, Bell, ArrowUpRight } from "lucide-react";
 
 export default function SettingsPage() {

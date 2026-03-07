@@ -5,29 +5,29 @@ import { cn } from "@/lib/utils/cn";
 import { Loader2 } from "lucide-react";
 
 const buttonVariants = cva(
-    "inline-flex items-center justify-center whitespace-nowrap rounded-xl text-[0.9375rem] font-medium transition-all duration-200 cubic-bezier(0.4, 0, 0.2, 1) focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+    "relative inline-flex items-center justify-center overflow-hidden whitespace-nowrap rounded-xl text-[11px] uppercase tracking-widest font-black transition-all duration-300 cubic-bezier(0.16,1,0.3,1) focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50",
     {
         variants: {
             variant: {
                 primary:
-                    "bg-primary text-white shadow-[0_4px_14px_rgba(40,160,240,0.35)] hover:bg-[#3BACF5] hover:-translate-y-[2px] hover:shadow-[0_6px_20px_rgba(40,160,240,0.45)]",
+                    "bg-gradient-to-b from-[#4A6EE0] to-[var(--rebeka-primary)] text-white shadow-[0_8px_16px_rgba(55,91,210,0.4),inset_0_1px_1px_rgba(255,255,255,0.3)] hover:shadow-[0_12px_24px_rgba(55,91,210,0.6),inset_0_1px_1px_rgba(255,255,255,0.4)] hover:-translate-y-[2px] border border-white/10 before:absolute before:inset-0 before:bg-white/0 hover:before:bg-white/10 before:transition-colors",
                 secondary:
-                    "bg-transparent text-foreground border border-white/15 hover:bg-white/5 hover:border-primary hover:-translate-y-[2px]",
+                    "bg-black/40 text-white border border-white/15 backdrop-blur-md shadow-[0_4px_12px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.05)] hover:bg-black/60 hover:border-[var(--rebeka-primary)] hover:shadow-[0_8px_24px_var(--rebeka-primary-dim),inset_0_1px_1px_rgba(255,255,255,0.1)] hover:-translate-y-[2px]",
                 gold:
-                    "bg-secondary text-background shadow-[0_4px_14px_rgba(184,147,99,0.35)] hover:bg-[#CBA77A] hover:-translate-y-[2px] hover:shadow-[0_6px_20px_rgba(184,147,99,0.45)]",
+                    "bg-gradient-to-b from-[#FFCF4A] to-[var(--rebeka-secondary)] text-black shadow-[0_8px_16px_rgba(247,181,0,0.3),inset_0_1px_1px_rgba(255,255,255,0.8)] hover:shadow-[0_12px_24px_rgba(247,181,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.9)] hover:-translate-y-[2px] border border-black/10 before:absolute before:inset-0 before:bg-white/0 hover:before:bg-white/20 before:transition-colors",
                 outline:
-                    "border border-white/15 bg-transparent hover:bg-white/5 text-foreground",
+                    "border border-white/20 bg-transparent hover:bg-white/5 text-white shadow-[0_4px_12px_rgba(0,0,0,0.2)] hover:border-white/40",
                 ghost:
-                    "bg-transparent hover:bg-white/5 text-foreground",
+                    "bg-transparent hover:bg-white/5 text-white/70 hover:text-white",
                 danger:
-                    "bg-red-600 text-white hover:bg-red-700 shadow-sm",
+                    "bg-gradient-to-b from-red-500 to-red-600 text-white hover:shadow-[0_8px_16px_rgba(220,38,38,0.4)] hover:-translate-y-[1px] shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)] border border-red-400/20",
             },
             size: {
-                default: "h-[50px] px-7 py-3.5",
-                sm: "h-10 rounded-lg px-4 text-sm",
-                md: "h-12 rounded-xl px-8",
-                lg: "h-14 rounded-xl px-8 text-base",
-                icon: "h-12 w-12",
+                default: "h-[50px] px-8 py-3.5",
+                sm: "h-10 px-5 text-[9px]",
+                md: "h-12 px-8 text-[10px]",
+                lg: "h-[60px] px-10 text-xs",
+                icon: "h-12 w-12 rounded-xl",
             },
         },
         defaultVariants: {

@@ -12,13 +12,13 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         return (
             <div className="w-full space-y-1.5">
                 {label && (
-                    <label htmlFor={id} className="text-sm font-medium text-gray-700">
+                    <label htmlFor={id} className="text-[10px] font-bold uppercase tracking-widest text-[#8892B0] mb-1.5 block">
                         {label}
                     </label>
                 )}
                 <div className="relative">
                     {icon && (
-                        <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30 group-focus-within:text-[var(--rebeka-primary)] transition-colors">
                             {icon}
                         </div>
                     )}
@@ -26,16 +26,16 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                         id={id}
                         ref={ref}
                         className={cn(
-                            "flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:cursor-not-allowed disabled:opacity-50",
-                            icon && "pl-10",
-                            error && "border-red-500 focus-visible:ring-red-500",
+                            "flex h-[50px] w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-sm text-white shadow-inner transition-all duration-300 placeholder:text-white/20 focus-visible:outline-none focus-visible:border-[var(--rebeka-primary)] focus-visible:ring-1 focus-visible:ring-[var(--rebeka-primary)] focus-visible:bg-black/60 focus-visible:shadow-[0_0_20px_var(--rebeka-primary-dim)] disabled:cursor-not-allowed disabled:opacity-50",
+                            icon && "pl-11",
+                            error && "border-red-500 focus-visible:border-red-500 focus-visible:ring-red-500",
                             className
                         )}
                         {...props}
                     />
                 </div>
                 {error && (
-                    <p className="text-sm text-red-500">{error}</p>
+                    <p className="text-[10px] font-mono font-medium text-red-400 mt-1">{error}</p>
                 )}
             </div>
         );

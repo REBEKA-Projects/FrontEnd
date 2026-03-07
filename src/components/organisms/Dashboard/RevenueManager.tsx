@@ -1,8 +1,6 @@
 "use client";
 
-import { Typography } from "@/components/atoms/Typography";
-import { Button } from "@/components/atoms/Button";
-import { GlassCard } from "@/components/GlassCard";
+import { Typography, Button, GlassCard } from "@/components/atoms";
 import { usePendingRevenue, useClaimRevenue } from "@/lib/web3/hooks";
 import { DollarSign, ArrowDownToLine, CheckCircle, Loader2, Coins } from "lucide-react";
 import { formatUnits } from "viem";

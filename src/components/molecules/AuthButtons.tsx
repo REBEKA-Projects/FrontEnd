@@ -3,7 +3,7 @@
 import { useAuthStore } from "@/store/useAuthStore";
 import { useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
-import { Button } from "@/components/atoms/Button";
+import { Button } from "@/components/atoms";
 import Link from "next/link";
 
 export function HeaderAuthButton() {
@@ -26,7 +26,7 @@ export function HeaderAuthButton() {
     ) : (
         <Button variant="secondary" size="md" asChild>
             <Link href="/dapp" className="text-sm px-5 py-2.5">
-                Go to App
+                Launch Portal
             </Link>
         </Button>
     );

@@ -1,19 +1,13 @@
 "use client";
 
-import { useState } from "react";
-import { InvestorStatus } from "@/components/organisms/KYC/InvestorStatus";
-import { Portfolio } from "@/components/organisms/Dashboard/Portfolio";
-import { RevenueManager } from "@/components/organisms/Dashboard/RevenueManager";
-import { StripeModal } from "@/components/organisms/Checkout/StripeModal";
-import { ProcessingModal } from "@/components/organisms/Checkout/ProcessingModal";
-import { NetworkGuard } from "@/components/organisms/Network/NetworkGuard";
-import { Typography } from "@/components/atoms/Typography";
+import { useState, useEffect } from "react";
+import { InvestorStatus, Portfolio, RevenueManager, StripeModal, ProcessingModal, NetworkGuard } from "@/components/organisms";
+import { Typography, GlassCard } from "@/components/atoms";
 import { useAuthStore } from "@/store/useAuthStore";
 import { useUserData } from "@/hooks/useUserData";
 import { useIsAllowed } from "@/lib/web3/hooks";
 import { KNOWN_TOKENS, getTokenConfig } from "@/lib/config/tokens";
-import { GlassCard } from "@/components/GlassCard";
-import { TrendingUp, ArrowUpRight, ArrowRight, Filter, Shield, Zap } from "lucide-react";
+import { TrendingUp, ArrowUpRight, ArrowRight, Filter, Shield, ShieldCheck, Zap } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export default function DashboardOverviewPage() {
@@ -32,13 +26,45 @@ export default function DashboardOverviewPage() {
     const [stripeClientSecret, setStripeClientSecret] = useState<string | null>(null);
     const [processingOpId, setProcessingOpId] = useState<string | null>(null);
 
+    const [showWelcome, setShowWelcome] = useState(true);
+
+    // Auto-dismiss welcome banner after 5 seconds
+    useEffect(() => {
+        const t = setTimeout(() => setShowWelcome(false), 5000);
+        return () => clearTimeout(t);
+    }, []);
+
     return (
         <div className="space-y-12 animate-fade-in">
+            {/* WELCOME BANNER — auto-dismisses after 5s */}
+            {showWelcome && (
+                <div className="relative overflow-hidden rounded-xl border border-[--color-success]/20 bg-[--color-success]/5 p-4 animate-fade-in-up">
+                    <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-lg bg-[--color-success]/15 border border-[--color-success]/25 flex items-center justify-center">
+                            <ShieldCheck className="w-4 h-4 text-[--color-success]" />
+                        </div>
+                        <div>
+                            <Typography variant="p" className="text-[--color-success] text-sm font-bold m-0">
+                                Welcome back. Your KYC is verified.
+                            </Typography>
+                            <span className="text-[10px] font-mono text-white/40 uppercase tracking-widest">
+                                Account ready for RWA Trading.
+                            </span>
+                        </div>
+                    </div>
+                    <button
+                        onClick={() => setShowWelcome(false)}
+                        className="absolute top-3 right-3 text-white/20 hover:text-white transition-colors text-xs"
+                    >
+                        ✕
+                    </button>
+                </div>
+            )}
             {/* DASHBOARD HEADER - Dense Information */}
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 border-b border-white/5 pb-10">
                 <div>
                     <Typography variant="h1" className="text-white font-bold text-4xl lg:text-5xl tracking-tighter leading-none mb-4 uppercase">
-                        Investor <span className="text-gradient-primary">Overview</span>
+                        Investor <span className="text-secondary">Overview</span>
                     </Typography>
                     <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[--rebeka-secondary-dim] border border-[--rebeka-secondary-glow] w-fit">
                         <Shield className="w-3 h-3 text-[--rebeka-secondary]" />
@@ -51,11 +77,15 @@ export default function DashboardOverviewPage() {
                 </div>
             </div>
 
-            {/* GRID COMPOSITION - Bloomberg Style Hierarchy */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+            {/* AGGREGATE SECURITY / KYC STATUS */}
+            <div className="w-full">
+                <InvestorStatus />
+            </div>
+
+            {/* MAIN TERMINAL GRID */}
+            <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 lg:gap-10">
                 {/* Main Interaction Column */}
-                <div className="lg:col-span-8 space-y-12">
-                    <InvestorStatus />
+                <div className="xl:col-span-8 space-y-10">
                     <Portfolio
                         portfolioData={userData?.portfolio}
                         operations={userData?.operations}
@@ -104,8 +134,8 @@ export default function DashboardOverviewPage() {
                 </div>
 
                 {/* Sidereal Data Column */}
-                <aside className="lg:col-span-4 space-y-10">
-                    <div className="flex flex-col gap-6 p-1 rounded-3xl bg-white/[0.01] border border-white/5">
+                <aside className="xl:col-span-4 space-y-10">
+                    <div className="flex flex-col gap-6 p-1 rounded-3xl bg-white/[0.01] border border-white/5 h-full">
                         <div className="p-6">
                             <div className="flex items-center justify-between mb-8">
                                 <Typography variant="h4" className="text-white uppercase tracking-widest font-bold flex items-center gap-3 text-sm">

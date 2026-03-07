@@ -81,7 +81,7 @@ export const projectsData: ProjectItem[] = [
             supply: '200,000 tokens',
             distribution: {
                 owner: '85.87% - Owner Liquidity Pool (Direct land acquisition)',
-                core: '6.00% - REBEKA Core Team',
+                core: '6.00% - FIDUCCI Core Team',
                 allies: '3.00% - Partner Program',
                 reserve: '5.13% - Operating Reserve (10-Year All-Inclusive)'
             }

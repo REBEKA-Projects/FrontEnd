@@ -16,16 +16,16 @@ export const Typography = ({
 }: TypographyProps) => {
     const Component = as || (variant.startsWith("h") ? (variant as ElementType) : "p");
 
-    const baseStyles = "text-gray-900 font-sans tracking-tight";
+    const baseStyles = "text-text-primary font-sans tracking-tight";
 
     const variants = {
-        h1: "text-4xl sm:text-5xl font-extrabold",
-        h2: "text-3xl sm:text-4xl font-bold",
-        h3: "text-2xl sm:text-3xl font-semibold",
-        h4: "text-xl sm:text-2xl font-semibold",
-        p: "text-base text-gray-700 leading-relaxed",
-        subtitle: "text-lg text-gray-600 font-medium",
-        caption: "text-sm text-gray-500",
+        h1: "text-4xl sm:text-5xl font-black uppercase italic tracking-tighter",
+        h2: "text-3xl sm:text-4xl font-black uppercase italic tracking-tighter",
+        h3: "text-2xl sm:text-3xl font-black uppercase italic tracking-tighter",
+        h4: "text-xl sm:text-2xl font-black uppercase italic tracking-tight",
+        p: "text-base text-text-secondary leading-relaxed font-medium",
+        subtitle: "text-sm text-[var(--rebeka-primary)] font-black uppercase tracking-[0.2em] italic",
+        caption: "text-[10px] text-white/40 uppercase font-bold tracking-widest",
     };
 
     return (

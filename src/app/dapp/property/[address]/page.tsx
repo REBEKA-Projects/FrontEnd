@@ -1,14 +1,8 @@
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
-import { Typography } from "@/components/atoms/Typography";
-import { GlassCard } from "@/components/GlassCard";
-import { AssetVault } from "@/components/organisms/Dashboard/AssetVault";
-import { RevenueManager } from "@/components/organisms/Dashboard/RevenueManager";
-import { InvestmentForm } from "@/components/organisms/Checkout/InvestmentForm";
-import { StripeModal } from "@/components/organisms/Checkout/StripeModal";
-import { ProcessingModal } from "@/components/organisms/Checkout/ProcessingModal";
-import { NetworkGuard } from "@/components/organisms/Network/NetworkGuard";
+import { Typography, GlassCard } from "@/components/atoms";
+import { AssetVault, RevenueManager, InvestmentForm, StripeModal, ProcessingModal, NetworkGuard } from "@/components/organisms";
 import { useTokenInfo, useTokenSupply, useTokenBalance, useIsAllowed } from "@/lib/web3/hooks";
 import { useAuthStore } from "@/store/useAuthStore";
 import { useUserData } from "@/hooks/useUserData";

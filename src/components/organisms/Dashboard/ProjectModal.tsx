@@ -1,7 +1,6 @@
 "use client";
 
-import { Typography } from "@/components/atoms/Typography";
-import { GlassCard } from "@/components/GlassCard";
+import { Typography, GlassCard } from "@/components/atoms";
 import {
     X,
     ShieldCheck,

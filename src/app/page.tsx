@@ -1,10 +1,4 @@
-import { Header } from '@/components/Header';
-import { RebekaLogo } from '@/components/atoms/RebekaLogo';
-import { PropertyCard } from '@/components/PropertyCard';
-import { GlassCard } from '@/components/GlassCard';
-import { ParaLogin } from '@/components/organisms/Auth/ParaLogin';
-import { HeroAuthButtons } from '@/components/client/AuthButtons';
-import { Typography } from '@/components/atoms/Typography';
+import { GlassCard, Typography, RebekaLogo } from '@/components/atoms';
 import { projectsData } from '@/lib/data/projects';
 import { ArrowRight, MapPin, TrendingUp, Ruler } from "lucide-react";
 import Link from "next/link";
@@ -12,55 +6,182 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div className="relative min-h-screen bg-blueprint">
-      {/* ═══ AMBIENT BACKGROUND ═══ */}
+      {/* Ambient background */}
       <div className="fixed inset-0 pointer-events-none blueprint-mask opacity-40" />
       <div className="fixed inset-0 pointer-events-none bg-blueprint-fade opacity-30" />
 
-      {/* Asymmetric Light Flares */}
-      <div className="fixed top-[-10%] left-[-5%] w-[40%] h-[40%] bg-primary blur-[120px] opacity-[0.05] pointer-events-none" />
-      <div className="fixed bottom-[-10%] right-[-5%] w-[35%] h-[35%] bg-secondary blur-[120px] opacity-[0.05] pointer-events-none" />
+      <div className="fixed top-[-10%] left-[-5%] w-[40%] h-[40%] bg-primary blur-[120px] opacity-[0.015] pointer-events-none" />
+      <div className="fixed bottom-[-10%] right-[-5%] w-[35%] h-[35%] bg-secondary blur-[120px] opacity-[0.015] pointer-events-none" />
 
-      <Header />
+      {/* Hero */}
+      <section className="relative z-10 px-6 pt-32 pb-8 md:pt-44 md:pb-12">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex items-center gap-3 mb-8 opacity-0 animate-[fade-in-up_0.8s_ease-out_forwards_0.1s]">
+            <div className="h-px w-12 bg-secondary" />
+            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-secondary font-bold">Tokenization as a Service</span>
+          </div>
 
-      <section className="relative z-10 min-h-screen flex items-center justify-center px-6 pt-20">
-        <div className="max-w-4xl mx-auto text-center">
-          <Typography variant="h1" className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-8 opacity-0 animate-[fade-in-up_0.8s_ease-out_forwards_0.2s]">
-            <span className="text-white">Real Estate Equity, </span>
-            <span className="text-gradient-primary">Reengineered</span> <br className="hidden md:block" />
-            <span className="text-white"> for the Digital Era</span>
+          <Typography variant="h1" className="font-heading text-4xl md:text-5xl lg:text-7xl font-bold tracking-tighter mb-8 opacity-0 animate-[fade-in-up_0.8s_ease-out_forwards_0.2s] leading-[0.95]">
+            <span className="text-white">The Trust Stack for </span>
+            <span className="text-secondary">Real World Assets.</span>
           </Typography>
 
-          <Typography variant="p" className="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto mb-12 opacity-0 animate-[fade-in-up_0.8s_ease-out_forwards_0.4s]">
-            Access high-yield property markets through secure, compliant, and privacy-preserving tokenization on <span className="text-primary font-semibold">Arbitrum Sepolia</span>.
+          <Typography variant="p" className="text-lg md:text-xl text-text-secondary max-w-xl mb-10 opacity-0 animate-[fade-in-up_0.8s_ease-out_forwards_0.35s]">
+            Institutional-grade protocol for tokenizing, managing, and investing in real-world assets. <span className="text-white font-medium">Transparent. Secure. Liquid.</span>
           </Typography>
 
-          <HeroAuthButtons />
+          <div className="flex flex-col sm:flex-row items-start gap-4 opacity-0 animate-[fade-in-up_0.8s_ease-out_forwards_0.45s]">
+            <Link
+              href="/dapp/projects"
+              className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl bg-secondary text-background font-bold text-sm tracking-wide hover:bg-secondary/90 hover:-translate-y-0.5 transition-all"
+            >
+              Explore Marketplace
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link
+              href="/dapp"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl border border-white/10 text-white/70 font-medium text-sm tracking-wide hover:border-white/25 hover:text-white hover:-translate-y-0.5 transition-all"
+            >
+              Launch Portal
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* ═══ CORE PILLARS ═══ */}
-      <section id="infrastructure" className="relative z-10 py-24 px-6 overflow-hidden">
+      {/* Access cards */}
+      <section className="relative z-10 px-6 pt-8 pb-24">
+        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-5">
+
+          {/* Investor Access */}
+          <div className="group relative rounded-2xl border border-white/[0.06] bg-white/[0.02] overflow-hidden opacity-0 animate-[fade-in-up_0.8s_ease-out_forwards_0.55s] hover:border-primary/20 transition-colors duration-300">
+            {/* Accent line */}
+            <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-primary via-primary/60 to-transparent" />
+
+            <div className="p-8 pl-10 flex flex-col h-full">
+              {/* Label row */}
+              <div className="flex items-center justify-between mb-8">
+                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-primary font-bold">Investor Access</span>
+                <span className="flex items-center gap-1.5 text-[10px] text-success font-bold uppercase tracking-widest">
+                  <span className="relative flex h-1.5 w-1.5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-50"></span>
+                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-success"></span>
+                  </span>
+                  Live
+                </span>
+              </div>
+
+              {/* Content */}
+              <Typography variant="h3" className="text-xl lg:text-2xl font-bold text-white mb-3 tracking-tight">
+                Invest in Verified RWA Projects
+              </Typography>
+              <Typography variant="p" className="text-[13px] text-text-muted leading-relaxed mb-8 max-w-sm">
+                Curated real-world asset offerings with Chainlink-verified data. Direct access, instant settlement, transparent yields.
+              </Typography>
+
+
+              <div className="grid grid-cols-3 gap-4 mb-8 pt-6 border-t border-white/5">
+                <div>
+                  <span className="block font-mono text-lg font-bold text-white">$30</span>
+                  <span className="text-[9px] uppercase tracking-widest text-white/30 font-bold">Min. Entry</span>
+                </div>
+                <div>
+                  <span className="block font-mono text-lg font-bold text-white">~8.5%</span>
+                  <span className="text-[9px] uppercase tracking-widest text-white/30 font-bold">Target Yield</span>
+                </div>
+                <div>
+                  <span className="block font-mono text-lg font-bold text-primary">Arbitrum</span>
+                  <span className="text-[9px] uppercase tracking-widest text-white/30 font-bold">Network</span>
+                </div>
+              </div>
+
+              {/* CTA */}
+              <div className="mt-auto">
+                <Link
+                  href="/dapp/projects"
+                  className="inline-flex items-center gap-2 text-sm font-bold text-primary uppercase tracking-widest group-hover:gap-3 transition-all"
+                >
+                  Explore Marketplace
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* Tokenization Access */}
+          <div className="group relative rounded-2xl border border-white/[0.06] bg-white/[0.02] overflow-hidden opacity-0 animate-[fade-in-up_0.8s_ease-out_forwards_0.65s] hover:border-secondary/20 transition-colors duration-300">
+            {/* Accent line */}
+            <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-secondary via-secondary/60 to-transparent" />
+
+            <div className="p-8 pl-10 flex flex-col h-full">
+              {/* Label row */}
+              <div className="flex items-center justify-between mb-8">
+                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-secondary font-bold">Tokenization Access</span>
+                <span className="px-2.5 py-1 rounded-md bg-secondary/10 border border-secondary/20 text-[9px] font-bold uppercase tracking-widest text-secondary">
+                  Inquiry Only
+                </span>
+              </div>
+
+              {/* Content */}
+              <Typography variant="h3" className="text-xl lg:text-2xl font-bold text-white mb-3 tracking-tight">
+                Tokenize Your Institutional Assets
+              </Typography>
+              <Typography variant="p" className="text-[13px] text-text-muted leading-relaxed mb-8 max-w-sm">
+                Unlock capital and global markets by digitizing high-value assets using FIDUCCI&apos;s TaaS protocol. Enhanced security, standardized legal framework.
+              </Typography>
+
+
+              <div className="space-y-3 mb-8 pt-6 border-t border-white/5">
+                {["SPV structuring & fiduciary trusts", "On-chain registry via IPFS", "Compliant token issuance (ERC-3643)"].map((feature, i) => (
+                  <div key={i} className="flex items-center gap-3">
+                    <div className="w-1 h-1 rounded-full bg-secondary/60 shrink-0" />
+                    <span className="text-[12px] text-white/50 font-medium">{feature}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* CTA */}
+              <div className="mt-auto flex flex-col sm:flex-row items-start gap-3">
+                <a
+                  href="mailto:inquiry@fiducci.protocol?subject=Asset%20Tokenization%20Inquiry"
+                  className="inline-flex items-center gap-2 text-sm font-bold text-secondary uppercase tracking-widest group-hover:gap-3 transition-all"
+                >
+                  Start Inquiry
+                  <ArrowRight className="w-4 h-4" />
+                </a>
+                <span className="text-white/15 hidden sm:block">|</span>
+                <a
+                  href="mailto:demos@fiducci.protocol?subject=Protocol%20Demo%20Request"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-white/30 uppercase tracking-widest hover:text-white/50 transition-colors"
+                >
+                  Request Demo
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* Core pillars */}
+      <section id="infrastructure" className="relative z-10 pt-32 pb-24 px-6 overflow-hidden">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16 relative">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary blur-[100px] opacity-10 pointer-events-none" />
+          <div className="mb-16 relative">
             <Typography variant="h2" className="text-white mb-4">
-              Institutional-Grade <span className="text-gradient-secondary">Infrastructure</span>
+              Institutional-Grade <span className="text-secondary">Infrastructure</span>
             </Typography>
-            <Typography variant="p" className="text-text-secondary max-w-2xl mx-auto">
+            <Typography variant="p" className="text-text-secondary max-w-xl">
               Our protocol is engineered from the ground up to protect your capital. Unbreakable legal backing meets zero-knowledge privacy.
             </Typography>
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-6">
-            {/* Pillar 1 */}
-            <GlassCard hover={true} className="group p-8 transition-all duration-300 opacity-0 animate-fade-in-up stagger-1 border-white/5 flex flex-col h-full bg-white/[0.02]">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-white/10 to-transparent border border-white/10 flex items-center justify-center mb-6 shrink-0 group-hover:scale-110 group-hover:border-primary/40 transition-all">
-                <svg className="w-6 h-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
+          <div className="grid lg:grid-cols-12 gap-6">
+
+            <GlassCard hover={true} className="lg:col-span-5 group p-8 lg:p-10 transition-all duration-300 opacity-0 animate-fade-in-up stagger-1 border-white/5 flex flex-col h-full bg-white/[0.02]">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-1 h-8 rounded-full bg-primary" />
+                <Typography variant="h3" className="text-lg font-bold text-white tracking-tight m-0">Sovereign Compliance Layer</Typography>
               </div>
               <div className="flex-1">
-                <Typography variant="h3" className="text-lg font-bold text-white mb-3 tracking-tight">Sovereign Compliance Layer</Typography>
                 <Typography variant="p" className="text-[13px] text-text-muted leading-relaxed mb-6">
                   Bank-grade identity verification (KYC/AML) built directly into the protocol layer. A secure environment where only strictly verified participants operate.
                 </Typography>
@@ -74,17 +195,14 @@ export default function Home() {
               </div>
             </GlassCard>
 
-            {/* Pillar 2 */}
-            <GlassCard hover={true} className="group p-8 transition-all duration-300 opacity-0 animate-fade-in-up stagger-2 border-white/5 flex flex-col h-full bg-white/[0.02] relative overflow-hidden">
-              {/* FHE Glow */}
-              <div className="absolute top-0 right-0 w-32 h-32 bg-secondary blur-[60px] opacity-10 group-hover:opacity-20 transition-opacity" />
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-white/10 to-transparent border border-white/10 flex items-center justify-center mb-6 shrink-0 group-hover:scale-110 group-hover:border-secondary/40 transition-all relative z-10">
-                <svg className="w-6 h-6 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                </svg>
+
+            <GlassCard hover={true} className="lg:col-span-7 group p-8 lg:p-10 transition-all duration-300 opacity-0 animate-fade-in-up stagger-2 border-white/5 flex flex-col h-full bg-white/[0.02] relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-secondary blur-[60px] opacity-[0.06] group-hover:opacity-[0.12] transition-opacity" />
+              <div className="flex items-center gap-3 mb-6 relative z-10">
+                <div className="w-1 h-8 rounded-full bg-secondary" />
+                <Typography variant="h3" className="text-lg font-bold text-white tracking-tight m-0">Zero-Knowledge Privacy</Typography>
               </div>
               <div className="flex-1 relative z-10">
-                <Typography variant="h3" className="text-lg font-bold text-white mb-3 tracking-tight">Zero-Knowledge Privacy</Typography>
                 <Typography variant="p" className="text-[13px] text-text-muted leading-relaxed mb-6">
                   Your portfolio is your business. Powered by FHE encryption, your balances and asset positions remain completely private, while staying fully compliant with regulatory standards.
                 </Typography>
@@ -98,47 +216,53 @@ export default function Home() {
               </div>
             </GlassCard>
 
-            {/* Pillar 3 */}
-            <GlassCard hover={true} className="group p-8 transition-all duration-300 opacity-0 animate-fade-in-up stagger-3 border-white/5 flex flex-col h-full bg-white/[0.02]">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-white/10 to-transparent border border-white/10 flex items-center justify-center mb-6 shrink-0 group-hover:scale-110 group-hover:border-white/30 transition-all">
-                <svg className="w-6 h-6 text-white/80" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                </svg>
-              </div>
-              <div className="flex-1">
-                <Typography variant="h3" className="text-lg font-bold text-white mb-3 tracking-tight">Unbreakable Legal Backing</Typography>
-                <Typography variant="p" className="text-[13px] text-text-muted leading-relaxed mb-6">
-                  Code meets contract. Every digital fraction you hold is legally bound to physical real estate through irrevocable Mexican fiduciary trusts, immutably registered on IPFS.
-                </Typography>
-              </div>
-              <div className="mt-auto pt-6 border-t border-white/5 flex items-center justify-between">
-                <span className="font-mono text-[10px] uppercase text-white/30 tracking-widest">Asset Registry Ledger</span>
-                <svg className="w-3 h-3 text-white/30" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z" clipRule="evenodd" />
-                </svg>
+
+            <GlassCard hover={true} className="lg:col-span-12 group p-8 lg:p-10 transition-all duration-300 opacity-0 animate-fade-in-up stagger-3 border-white/5 bg-white/[0.02]">
+              <div className="lg:flex lg:items-start lg:gap-12">
+                <div className="flex items-center gap-3 mb-6 lg:mb-0 lg:shrink-0">
+                  <div className="w-1 h-8 rounded-full bg-white/40" />
+                  <Typography variant="h3" className="text-lg font-bold text-white tracking-tight m-0">Unbreakable Legal Backing</Typography>
+                </div>
+                <div className="flex-1">
+                  <Typography variant="p" className="text-[13px] text-text-muted leading-relaxed m-0">
+                    Code meets contract. Every digital fraction you hold is legally bound to physical real estate through irrevocable Mexican fiduciary trusts, immutably registered on IPFS.
+                  </Typography>
+                </div>
+                <div className="mt-6 lg:mt-0 pt-6 lg:pt-0 border-t lg:border-t-0 lg:border-l border-white/5 lg:pl-8 flex items-center gap-4 lg:shrink-0">
+                  <span className="font-mono text-[10px] uppercase text-white/30 tracking-widest">Asset Registry Ledger</span>
+                </div>
               </div>
             </GlassCard>
           </div>
         </div>
       </section>
 
-      {/* ═══ THE FLOW (Timeline) ═══ */}
-      <section className="relative z-10 py-24 px-6 bg-black border-y border-white/5">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
+      {/* Onboarding timeline */}
+      <section className="relative z-10 py-32 px-6 overflow-hidden">
+        {/* Layered background */}
+        <div className="absolute inset-0 bg-blueprint opacity-20 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-surface/40 to-background pointer-events-none" />
+        <div className="absolute inset-0 blueprint-mask opacity-60 pointer-events-none" />
+
+
+        <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[500px] h-[500px] bg-primary/10 blur-[120px] rounded-full pointer-events-none" />
+        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-secondary/5 blur-[100px] rounded-full pointer-events-none" />
+
+        <div className="max-w-6xl mx-auto relative z-10">
+          <div className="mb-16">
             <Typography variant="h2" className="text-white mb-4">
-              Streamlined <span className="text-gradient-primary">Onboarding</span>
+              Streamlined <span className="text-secondary">Onboarding</span>
             </Typography>
-            <Typography variant="p" className="text-text-secondary max-w-2xl mx-auto">
+            <Typography variant="p" className="text-text-secondary max-w-xl">
               From fiat capital to tokenized equity in four seamless, secure steps.
             </Typography>
           </div>
 
           <div className="grid md:grid-cols-4 gap-4 relative">
-            {/* Connecting Line (hidden on mobile) */}
+
             <div className="hidden md:block absolute top-[40px] left-[10%] right-[10%] h-[1px] bg-gradient-to-r from-transparent via-primary/15 to-transparent" />
 
-            {/* Step 1 */}
+
             <div className="relative z-10 text-center space-y-4">
               <div className="w-20 h-20 mx-auto rounded-2xl bg-black border border-white/10 flex items-center justify-center relative shadow-[0_0_30px_rgba(0,0,0,0.5)]">
                 <div className="absolute inset-x-0 -bottom-px h-px bg-gradient-to-r from-transparent via-primary to-transparent opacity-50" />
@@ -150,7 +274,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Step 2 */}
+
             <div className="relative z-10 text-center space-y-4 mt-8 md:mt-0">
               <div className="w-20 h-20 mx-auto rounded-2xl bg-black border border-white/10 flex items-center justify-center relative shadow-[0_0_30px_rgba(0,0,0,0.5)]">
                 <div className="absolute inset-x-0 -bottom-px h-px bg-gradient-to-r from-transparent via-primary to-transparent opacity-50" />
@@ -162,7 +286,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Step 3 */}
+
             <div className="relative z-10 text-center space-y-4 mt-8 md:mt-0">
               <div className="w-20 h-20 mx-auto rounded-2xl bg-black border border-white/10 flex items-center justify-center relative shadow-[0_0_30px_rgba(0,0,0,0.5)]">
                 <div className="absolute inset-x-0 -bottom-px h-px bg-gradient-to-r from-transparent via-secondary to-transparent opacity-50" />
@@ -174,7 +298,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Step 4 */}
+
             <div className="relative z-10 text-center space-y-4 mt-8 md:mt-0">
               <div className="w-20 h-20 mx-auto rounded-2xl bg-primary/15 border border-primary/40 flex items-center justify-center relative shadow-[0_0_30px_rgba(0,0,0,0.5)]">
                 <div className="absolute inset-0 bg-primary blur-md opacity-20" />
@@ -190,21 +314,23 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══ FEATURED ASSETS — Project Showcase ═══ */}
-      <section id="projects" className="relative z-10 py-24 px-6">
+      {/* Featured assets */}
+      <section id="projects" className="relative z-10 pt-20 pb-24 px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <span className="badge-blockchain mb-4 inline-flex font-mono uppercase text-[9px] tracking-[0.2em] mx-auto">
-              <svg className="w-3.5 h-3.5 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z" clipRule="evenodd" />
-              </svg>
-              Live Offerings
-            </span>
-            <Typography variant="h2" className="text-white mb-4">
-              Tokenized <span className="text-gradient-primary">Real Estate</span>
-            </Typography>
-            <Typography variant="p" className="text-text-secondary max-w-2xl mx-auto">
-              Explore our curated selection of institutional-grade properties, each backed by irrevocable fiduciary trusts and tokenized on Arbitrum.
+          <div className="flex items-end justify-between mb-12 gap-8">
+            <div>
+              <span className="badge-blockchain mb-4 inline-flex font-mono uppercase text-[9px] tracking-[0.2em]">
+                <svg className="w-3.5 h-3.5 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z" clipRule="evenodd" />
+                </svg>
+                Live Offerings
+              </span>
+              <Typography variant="h2" className="text-white mb-4">
+                Tokenized <span className="text-secondary">Real Estate</span>
+              </Typography>
+            </div>
+            <Typography variant="p" className="text-text-secondary max-w-sm hidden lg:block">
+              Institutional-grade properties, each backed by irrevocable fiduciary trusts and tokenized on Arbitrum.
             </Typography>
           </div>
 
@@ -213,27 +339,25 @@ export default function Home() {
               <Link key={project.id} href={`/dapp/projects/${project.id}`} className="block group">
                 <GlassCard hover={true} className="overflow-hidden border-white/5">
                   <div className="grid lg:grid-cols-2">
-                    {/* Left: Image with overlay */}
                     <div className="relative h-64 lg:h-auto lg:min-h-[380px] overflow-hidden">
                       <div
                         className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
                         style={{ backgroundImage: `url(${project.imageUrl})` }}
                       />
                       <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-black/50 lg:to-black/90" />
-                      {/* Status badge */}
+
                       <div className="absolute top-5 left-5">
                         <span className="px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-primary/30 text-[10px] uppercase font-bold tracking-widest text-primary">
                           {project.status === 'funding' ? '● Funding Active' : project.status === 'funded' ? '● Funded' : '● Completed'}
                         </span>
                       </div>
-                      {/* Location */}
+
                       <div className="absolute bottom-5 left-5 flex items-center gap-2">
                         <MapPin className="w-3.5 h-3.5 text-white/50" />
                         <span className="text-[10px] uppercase font-bold tracking-widest text-white/60">{project.location.short}</span>
                       </div>
                     </div>
 
-                    {/* Right: Project Info */}
                     <div className="p-8 lg:p-10 flex flex-col justify-between">
                       <div>
                         <div className="flex items-center gap-3 mb-1">
@@ -246,7 +370,7 @@ export default function Home() {
                           {project.thesis.description}
                         </Typography>
 
-                        {/* Key Metrics */}
+
                         <div className="grid grid-cols-3 gap-4 mb-6">
                           <div className="flex flex-col">
                             <span className="text-[9px] font-bold text-white/25 uppercase tracking-widest mb-1 flex items-center gap-1">
@@ -267,7 +391,7 @@ export default function Home() {
                         </div>
                       </div>
 
-                      {/* Progress + CTA */}
+
                       <div>
                         <div className="mb-5">
                           <div className="flex items-center justify-between mb-2">
@@ -296,7 +420,7 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Browse All CTA */}
+
           <div className="mt-12 text-center">
             <Link href="/dapp/projects" className="btn-primary group/btn inline-flex">
               Browse All Properties
@@ -312,13 +436,13 @@ export default function Home() {
             <div className="flex items-center gap-6">
               <RebekaLogo size="sm" />
               <span className="text-[10px] text-text-muted uppercase font-bold tracking-widest">
-                © 2026 REBEKA Protocol. Real Estate Blockchain Ekosystem Arbitrum.
+                © 2026 FIDUCCI Protocol. The Trust Stack for Real World Assets.
               </span>
             </div>
             <div className="flex items-center gap-6 text-sm text-text-muted">
-              <a href="#" className="hover:text-white transition-colors">Terms</a>
-              <a href="#" className="hover:text-white transition-colors">Privacy</a>
-              <a href="#" className="hover:text-white transition-colors">Documentation</a>
+              <Link href="/legal/terms" className="hover:text-white transition-colors">Terms</Link>
+              <Link href="/legal/privacy" className="hover:text-white transition-colors">Privacy</Link>
+              <a href="https://docs.fiducci.protocol" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">Documentation</a>
             </div>
           </div>
         </div>

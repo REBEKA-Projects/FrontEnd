@@ -26,7 +26,7 @@ export const KNOWN_TOKENS: TokenConfig[] = [
         imageUrl: '/assets/genesis-puebla.jpg',
         yieldAPY: '8.5%',
         assetClass: 'Residential-Commercial',
-        pricePerToken: 350,
+        pricePerToken: 30,
     },
 ];
 

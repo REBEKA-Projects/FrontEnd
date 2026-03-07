@@ -52,121 +52,132 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
     ];
 
     return (
-        <div className="min-h-screen bg-blueprint text-[--rebeka-text-primary] flex flex-col selection:bg-[--rebeka-primary] selection:text-white overflow-hidden">
+        <div className="flex h-screen pt-20 bg-blueprint text-[--rebeka-text-primary] selection:bg-[--rebeka-primary] selection:text-white overflow-hidden relative">
             {/* Structural Blueprint Grid Layers */}
-            <div className="fixed inset-0 pointer-events-none blueprint-mask opacity-50" />
-            <div className="fixed inset-0 pointer-events-none bg-blueprint-fade opacity-40" />
+            <div className="fixed inset-0 pointer-events-none blueprint-mask opacity-50 z-0" />
+            <div className="fixed inset-0 pointer-events-none bg-blueprint-fade opacity-40 z-0" />
 
             {/* Dynamic Asymmetric Light Blows */}
-            <div className="fixed top-[-10%] left-[-5%] w-[40%] h-[40%] bg-[--rebeka-primary] blur-[120px] opacity-[0.05] pointer-events-none" />
-            <div className="fixed bottom-[-10%] right-[-5%] w-[35%] h-[35%] bg-[--rebeka-secondary] blur-[100px] opacity-[0.04] pointer-events-none" />
+            <div className="fixed top-[-10%] left-[-5%] w-[40%] h-[40%] bg-[--rebeka-primary] blur-[120px] opacity-[0.02] pointer-events-none z-0" />
+            <div className="fixed bottom-[-10%] right-[-5%] w-[35%] h-[35%] bg-[--rebeka-secondary] blur-[100px] opacity-[0.02] pointer-events-none z-0" />
 
-            {/* TOP BAR — Navigation + Identity */}
-            <header className="h-14 bg-black/40 backdrop-blur-xl border-b border-white/5 flex items-center px-6 justify-between sticky top-0 z-[100]">
-                <div className="flex items-center gap-8">
-                    <Link href="/" className="flex items-center group">
-                        <RebekaLogo size="sm" className="group-hover:scale-105 transition-transform" />
+            {/* LEFT SIDEBAR */}
+            <aside className={cn(
+                "w-72 shrink-0 bg-black/40 backdrop-blur-2xl border-r border-white/5 flex flex-col z-[100] transition-all duration-300 relative",
+                isSidebarOpen ? "translate-x-0" : "-translate-x-full absolute h-full lg:static lg:translate-x-0 lg:w-20"
+            )}>
+                {/* Logo Area */}
+                <div className="h-20 flex items-center justify-center lg:justify-start lg:px-8 border-b border-white/5 shrink-0">
+                    <Link href="/" className={cn("flex items-center group transition-all", !isSidebarOpen && "lg:scale-75")}>
+                        <RebekaLogo size="md" className="group-hover:scale-105 transition-transform" />
                     </Link>
+                </div>
 
-                    <nav className="hidden lg:flex items-center gap-1 border-l border-white/10 pl-8">
-                        {[
-                            { href: '/dashboard', label: 'Dashboard' },
-                            { href: '/dapp/projects', label: 'Marketplace' },
-                        ].map((link) => (
+                {/* Navigation Links */}
+                <nav className="flex-1 overflow-y-auto scrollbar-hide py-8 px-4 space-y-2">
+                    <span className={cn("block px-4 mb-4 text-[10px] uppercase font-bold tracking-[0.2em] text-white/20 transition-opacity duration-300", !isSidebarOpen && "lg:opacity-0")}>
+                        Terminal Menu
+                    </span>
+                    {navItems.map((item) => {
+                        const isActive = pathname === item.id;
+                        return (
                             <Link
-                                key={link.href}
-                                href={link.href}
+                                key={item.id}
+                                href={item.id}
+                                title={(!isSidebarOpen) ? item.label : undefined}
                                 className={cn(
-                                    "px-4 py-1.5 rounded-lg text-[11px] font-bold uppercase tracking-widest transition-all",
-                                    pathname === link.href
-                                        ? "bg-white/10 text-white border border-white/10"
-                                        : "text-white/40 hover:text-white hover:bg-white/5"
+                                    "flex items-center rounded-xl transition-all group overflow-hidden",
+                                    isSidebarOpen ? "px-4 py-3.5" : "lg:justify-center p-3.5 mx-auto max-w-[48px]",
+                                    isActive
+                                        ? "bg-gradient-to-r from-[--rebeka-primary-dim] to-transparent text-[--rebeka-primary] border-l-2 border-[--rebeka-primary] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]"
+                                        : "text-white/40 hover:bg-white/5 hover:text-white border-l-2 border-transparent"
                                 )}
                             >
-                                {link.label}
+                                <item.icon className={cn("w-5 h-5 shrink-0 transition-colors", isActive ? "text-[--rebeka-primary]" : "text-white/30 group-hover:text-white/80")} />
+                                <span className={cn("ml-4 text-[11px] font-black uppercase tracking-widest truncate transition-all duration-300", !isSidebarOpen ? "lg:opacity-0 lg:w-0 lg:ml-0" : "opacity-100")}>
+                                    {item.label}
+                                </span>
                             </Link>
-                        ))}
-                    </nav>
-                </div>
+                        );
+                    })}
+                </nav>
 
-
-                <div className="flex items-center gap-4">
-                    <div className="flex items-center gap-2">
-                        <div className="flex flex-col items-end mr-2">
-                            <span className="text-[10px] text-white/40 uppercase font-bold tracking-tighter">Wallet</span>
-                            <span className="text-[11px] font-mono text-white/80">{formattedWallet}</span>
+                {/* Sidebar Footer (Status) */}
+                <div className={cn("p-6 border-t border-white/5 transition-all duration-300", !isSidebarOpen && "lg:p-4")}>
+                    <div className={cn("flex items-center gap-3", !isSidebarOpen && "lg:justify-center")}>
+                        <div className="relative">
+                            <span className="w-2.5 h-2.5 rounded-full bg-[--rebeka-success] flex shadow-[0_0_10px_var(--rebeka-success-dim)]" />
+                            <span className="w-2.5 h-2.5 rounded-full bg-[--rebeka-success] absolute inset-0 animate-ping opacity-75" />
                         </div>
-                        <button className="p-2 hover:bg-white/5 rounded-full transition-colors relative">
-                            <Bell className="w-4 h-4 text-white/60" />
-                            <span className="absolute top-2 right-2 w-1.5 h-1.5 bg-[--rebeka-primary] rounded-full ring-2 ring-black" />
-                        </button>
-                        <button onClick={logout} className="p-2 hover:bg-red-500/10 rounded-full group transition-colors">
-                            <LogOut className="w-4 h-4 text-white/40 group-hover:text-red-400" />
-                        </button>
+                        <div className={cn("flex flex-col transition-all duration-300", !isSidebarOpen && "lg:hidden")}>
+                            <span className="text-[9px] text-[--rebeka-success] font-black uppercase tracking-widest">System Online</span>
+                            <span className="text-[8px] font-mono text-white/30 uppercase">Arbitrum Sepolia</span>
+                        </div>
                     </div>
                 </div>
-            </header>
+            </aside>
 
-            <div className="flex-1 flex overflow-hidden">
-                {/* SIDE NAV - Refined Vertical Bar */}
-                <aside className={cn(
-                    "bg-black/20 border-r border-white/5 flex flex-col gap-8 transition-all duration-300 relative",
-                    isSidebarOpen ? "w-64 p-4" : "w-16 p-2 items-center"
-                )}>
-                    {/* Toggle Button */}
-                    <button
-                        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                        className="absolute -right-3 top-6 bg-black border border-white/10 rounded-full p-1.5 text-white/40 hover:text-white hover:border-[--rebeka-primary-glow] hover:bg-[--rebeka-primary-dim] transition-all z-50 shadow-xl"
-                    >
-                        {isSidebarOpen ? <ChevronLeft className="w-3 h-3" /> : <Menu className="w-3 h-3" />}
-                    </button>
+            {/* MAIN CONTENT AREA */}
+            <div className="flex-1 flex flex-col min-w-0 relative z-10 w-full overflow-hidden">
+                {/* TOP HEADER */}
+                <header className="h-20 bg-black/20 backdrop-blur-md border-b border-white/5 flex items-center justify-between px-6 lg:px-10 shrink-0">
+                    <div className="flex items-center gap-4">
+                        <button
+                            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                            className="p-2 lg:hidden text-white/40 hover:text-white transition-colors"
+                        >
+                            <Menu className="w-6 h-6" />
+                        </button>
 
-                    <div className="space-y-6 w-full mt-2">
-                        <nav className="space-y-1 w-full">
-                            {isSidebarOpen && <span className="block px-4 mb-2 text-[10px] uppercase font-bold tracking-[0.2em] text-white/20">Main Navigation</span>}
-                            {navItems.map((item) => {
-                                const isActive = pathname === item.id;
-                                return (
-                                    <Link
-                                        key={item.id}
-                                        href={item.id}
-                                        title={!isSidebarOpen ? item.label : undefined}
-                                        className={cn(
-                                            "w-full flex items-center rounded-lg transition-all group",
-                                            isSidebarOpen ? "justify-between px-4 py-2.5" : "justify-center p-3 mb-2 mx-auto max-w-[40px]",
-                                            isActive
-                                                ? "bg-gradient-to-r from-[--rebeka-primary-dim] to-transparent text-[--rebeka-primary] border-l-2 border-[--rebeka-primary]"
-                                                : "text-white/40 hover:bg-white/5 hover:text-white"
-                                        )}
-                                    >
-                                        <div className={cn("flex items-center font-medium tracking-tight", isSidebarOpen ? "gap-3 text-xs" : "")}>
-                                            <item.icon className={cn("w-4 h-4 shrink-0", isActive ? "text-[--rebeka-primary]" : "text-white/20 group-hover:text-white/60")} />
-                                            {isSidebarOpen && <span className="truncate">{item.label}</span>}
-                                        </div>
-                                        {isSidebarOpen && isActive && <ChevronRight className="w-3 h-3 shrink-0" />}
-                                    </Link>
-                                );
-                            })}
-                        </nav>
+                        {/* Dynamic Breadcrumb based on pathname */}
+                        <div className="hidden lg:flex flex-col items-start gap-0.5">
+                            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#8892B0]">Terminal Active</span>
+                            <h2 className="text-white font-black italic uppercase tracking-tighter leading-none text-xl">
+                                {pathname === '/dashboard' ? 'Overview' : navItems.find(n => n.id === pathname)?.label || 'Dashboard'}
+                            </h2>
+                        </div>
                     </div>
-                </aside>
 
-                {/* MAIN DASHBOARD CONTENT */}
-                <main className="flex-1 overflow-y-auto scrollbar-hide">
-                    <div className="p-8 max-w-[1400px] mx-auto opacity-0 animate-[fade-in_0.5s_ease-out_forwards]">
+                    <div className="flex items-center gap-4 lg:gap-6">
+                        {/* Quick Action: Marketplace */}
+                        <Link
+                            href="/dapp/projects"
+                            className="hidden lg:flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all group"
+                        >
+                            <ShoppingBag className="w-4 h-4 text-white/40 group-hover:text-white transition-colors" />
+                            <span className="text-[10px] font-black text-white uppercase tracking-widest">Marketplace</span>
+                        </Link>
+
+                        <div className="w-px h-8 bg-white/10 hidden lg:block" />
+
+                        <div className="flex items-center gap-4">
+                            <button className="p-2 hover:bg-white/5 rounded-xl transition-colors relative group">
+                                <Bell className="w-5 h-5 text-white/40 group-hover:text-white transition-colors" />
+                                <span className="absolute top-2 right-2 w-2 h-2 bg-[--rebeka-primary] rounded-full ring-2 ring-black shadow-[0_0_8px_var(--rebeka-primary-dim)]" />
+                            </button>
+
+                            <div className="flex items-center gap-3 pl-2 lg:pl-4 border-l border-white/5">
+                                <div className="hidden lg:flex flex-col items-end">
+                                    <span className="text-[9px] text-white/40 uppercase font-bold tracking-[0.2em]">Connected Wallet</span>
+                                    <span className="text-xs font-mono text-white/90 font-medium tracking-tight">{formattedWallet}</span>
+                                </div>
+                                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-white/10 to-transparent border border-white/10 flex items-center justify-center p-[1px] group cursor-pointer" onClick={logout}>
+                                    <div className="w-full h-full rounded-[10px] bg-black/40 flex items-center justify-center group-hover:bg-red-500/10 transition-colors">
+                                        <LogOut className="w-4 h-4 text-white/40 group-hover:text-red-400 transition-colors" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                {/* SCROLLABLE VIEWPORT */}
+                <main className="flex-1 overflow-y-auto scrollbar-hide p-6 lg:p-10">
+                    <div className="max-w-[1400px] mx-auto opacity-0 animate-[fade-in_0.5s_ease-out_forwards] pb-20">
                         {children}
                     </div>
                 </main>
             </div>
-
-            {/* FOOTER BAR */}
-            <footer className="h-8 bg-black/60 border-t border-white/5 flex items-center px-6 justify-between text-[10px] font-mono tracking-tighter">
-                <span className="text-white/20 uppercase">© 2026 Rebeka Protocol • Arbitrum Sepolia</span>
-                <div className="flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[--rebeka-success] animate-pulse" />
-                    <span className="text-white/30 uppercase">Online</span>
-                </div>
-            </footer>
         </div>
     );
 };

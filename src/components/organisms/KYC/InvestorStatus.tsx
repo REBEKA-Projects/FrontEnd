@@ -3,10 +3,8 @@
 import { useState } from "react";
 import { useAuthStore } from "@/store/useAuthStore";
 import { useUserData } from "@/hooks/useUserData";
-import { Typography } from "@/components/atoms/Typography";
-import { Button } from "@/components/atoms/Button";
+import { Typography, Button, GlassCard } from "@/components/atoms";
 import { ShieldCheck, Clock, ShieldAlert, ArrowRight, Fingerprint } from "lucide-react";
-import { GlassCard } from "@/components/GlassCard";
 import { apiClient } from "@/lib/api/client";
 
 export const InvestorStatus = () => {
@@ -46,7 +44,7 @@ export const InvestorStatus = () => {
             <GlassCard className="p-6 overflow-visible border-white/5" hover={false}>
                 <div className="flex flex-col md:flex-row items-center gap-6">
                     <div className="relative shrink-0">
-                        <div className={`w-16 h-16 rounded-2xl flex items-center justify-center border transition-all ${isApproved ? 'bg-[--rebeka-secondary-dim] border-[--rebeka-secondary-glow]' : 'bg-red-500/5 border-red-500/20'}`}>
+                        <div className={`w-16 h-16 rounded-2xl flex items-center justify-center border transition-all ${isApproved ? 'bg-[--rebeka-secondary-dim] border-[--rebeka-secondary_glow]' : 'bg-red-500/5 border-red-500/20'}`}>
                             {isApproved ? (
                                 <ShieldCheck className="w-8 h-8 text-[--rebeka-secondary]" />
                             ) : (

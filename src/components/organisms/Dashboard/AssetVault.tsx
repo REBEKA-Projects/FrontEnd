@@ -1,7 +1,6 @@
 "use client";
 
-import { Typography } from "@/components/atoms/Typography";
-import { GlassCard } from "@/components/GlassCard";
+import { Typography, GlassCard } from "@/components/atoms";
 import { useAssetMetadata, useAssetDocument } from "@/lib/web3/hooks";
 import { FileText, ExternalLink, ShieldCheck, Hash } from "lucide-react";
 import { keccak256, toBytes } from "viem";

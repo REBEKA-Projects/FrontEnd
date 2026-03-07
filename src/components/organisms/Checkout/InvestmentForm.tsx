@@ -1,9 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/atoms/Button";
-import { Input } from "@/components/atoms/Input";
-import { Typography } from "@/components/atoms/Typography";
+import { Button, Input, Typography } from "@/components/atoms";
 import { apiClient } from "@/lib/api/client";
 import { Coins, ChevronRight, AlertCircle, ShieldAlert } from "lucide-react";
 import { useIsAllowed } from "@/lib/web3/hooks";

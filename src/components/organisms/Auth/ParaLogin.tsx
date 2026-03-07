@@ -4,8 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/useAuthStore";
 import { useAutoRegister } from "@/hooks/useAutoRegister";
-import { Typography } from "@/components/atoms/Typography";
-import { GlassCard } from "@/components/GlassCard";
+import { Typography, GlassCard } from "@/components/atoms";
 import { Shield, Fingerprint, ArrowRight, Loader2, RefreshCw } from "lucide-react";
 import { useModal, useAccount } from "@getpara/react-sdk";
 

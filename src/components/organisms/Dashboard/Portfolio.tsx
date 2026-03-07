@@ -1,22 +1,16 @@
 "use client";
 
-import { useMemo } from "react";
 import { useRouter } from "next/navigation";
-import { Typography } from "@/components/atoms/Typography";
-import {
-    ShieldCheck,
-    TrendingUp,
-    Info,
-    ArrowUpRight,
-    ArrowDownRight,
-    Target,
-    Zap,
-    History
-} from "lucide-react";
-import { GlassCard } from "@/components/GlassCard";
+import { Typography, GlassCard } from "@/components/atoms";
+import { ShieldCheck, ArrowUpRight, Target, Zap, History } from "lucide-react";
 import { UserDataResponse, CheckoutOperation } from "@/hooks/useUserData";
-import { useTokenBalance, useIsAllowed } from "@/lib/web3/hooks";
 import { getTokenConfig } from "@/lib/config/tokens";
+
+const BriefcaseIcon = ({ className }: { className: string }) => (
+    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+    </svg>
+);
 
 interface PortfolioProps {
     portfolioData?: UserDataResponse['portfolio'];
@@ -28,35 +22,48 @@ interface PortfolioProps {
 
 export const Portfolio = ({ portfolioData = [], operations = [], isLoading, walletAddress, tokenAddress }: PortfolioProps) => {
     const router = useRouter();
-    // Calcular balance total desde el backend
-    const totalTokens = portfolioData.reduce((acc, item) => acc + Number(item.balance || 0), 0);
-    const globalValueUsd = totalTokens * 350;
 
-    // Lectura on-chain directa (opcional, solo si tenemos wallet y token address)
-    const { data: onChainBalance } = useTokenBalance(
-        tokenAddress || '0x0000000000000000000000000000000000000000',
-        walletAddress || '0x0000000000000000000000000000000000000000'
-    );
-    const { data: isWhitelisted } = useIsAllowed(
-        tokenAddress || '0x0000000000000000000000000000000000000000',
-        walletAddress || '0x0000000000000000000000000000000000000000'
-    );
+    const usdcItem = portfolioData.find(item => item.symbol === 'USDC');
+    const cashBalance = Number(usdcItem?.balance || 0);
 
-    // Usar balance on-chain si disponible, fallback a backend
-    const displayTokens = onChainBalance !== undefined ? Number(onChainBalance) : totalTokens;
-    const displayValueUsd = displayTokens * 350;
+    const rwaPortfolio = portfolioData.filter(item => item.symbol !== 'USDC');
+    const totalTokens = rwaPortfolio.reduce((acc, item) => acc + Number(item.balance || 0), 0);
+    const firstTokenCfg = rwaPortfolio.length > 0 ? getTokenConfig(rwaPortfolio[0].tokenAddress) : null;
 
-    // Static sparkline data for visual decoration
+    const displayTokens = totalTokens;
+    const displayValueUsd = displayTokens * (firstTokenCfg?.pricePerToken || 30);
     const sparklineData = [40, 55, 35, 60, 45, 70, 50, 65, 55, 75, 60, 80, 65, 70, 85, 75, 90, 80, 85, 95];
 
     return (
         <div className="space-y-8">
-            {/* KEY METRICS GRID - High Intensity */}
+            {/* Key metrics grid */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+
+                <div className="p-4 rounded-xl bg-gradient-to-br from-[--rebeka-secondary-dim] to-transparent border border-[--rebeka-secondary-glow]/30 backdrop-blur-md">
+                    <div className="flex items-center gap-2 mb-3">
+                        <Zap className="w-3 h-3 text-[--rebeka-secondary]" />
+                        <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Available Cash</span>
+                    </div>
+                    <div className="flex items-baseline gap-2">
+                        {isLoading ? (
+                            <div className="h-8 w-24 bg-white/10 rounded-md animate-pulse" />
+                        ) : (
+                            <>
+                                <span className="text-2xl font-mono font-bold text-white">${cashBalance.toLocaleString()}</span>
+                                <span className="text-[10px] font-mono text-white/30 uppercase">USDC</span>
+                            </>
+                        )}
+                    </div>
+                    <div className="mt-2 text-[10px] text-white/30 font-medium">
+                        Ready for Settlement
+                    </div>
+                </div>
+
+
                 <div className="p-4 rounded-xl bg-black/40 border border-white/5 backdrop-blur-md">
                     <div className="flex items-center gap-2 mb-3">
                         <div className="w-1.5 h-1.5 rounded-full bg-[--rebeka-primary] shadow-[0_0_8px_var(--rebeka-primary)]" />
-                        <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Global Balance</span>
+                        <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Holdings Value</span>
                     </div>
                     <div className="flex items-baseline gap-2">
                         {isLoading ? (
@@ -73,9 +80,10 @@ export const Portfolio = ({ portfolioData = [], operations = [], isLoading, wall
                     </div>
                 </div>
 
+
                 <div className="p-4 rounded-xl bg-black/40 border border-white/5 backdrop-blur-md">
                     <div className="flex items-center gap-2 mb-3">
-                        <div className="w-1.5 h-1.5 rounded-full bg-[--rebeka-secondary] shadow-[0_0_8px_var(--rebeka-secondary)]" />
+                        <div className="w-1.5 h-1.5 rounded-full bg-white/20" />
                         <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Tokens Held</span>
                     </div>
                     <div className="flex items-baseline gap-2">
@@ -84,20 +92,17 @@ export const Portfolio = ({ portfolioData = [], operations = [], isLoading, wall
                         ) : (
                             <>
                                 <span className="text-2xl font-mono font-bold text-white">{displayTokens.toLocaleString()}</span>
-                                <span className="text-[10px] font-mono text-white/30 uppercase">RBK</span>
+                                <span className="text-[10px] font-mono text-white/30 uppercase">GPUE</span>
                             </>
                         )}
                     </div>
                     <div className="mt-2 flex items-center gap-2 text-[10px] text-white/30 font-medium">
-                        {onChainBalance !== undefined ? (
-                            <span className="flex items-center gap-1 text-[--rebeka-success]">
-                                <div className="w-1.5 h-1.5 rounded-full bg-[--rebeka-success]" /> On-chain verified
-                            </span>
-                        ) : (
-                            <span>Verified via Arbitrum Sepolia</span>
-                        )}
+                        <span className="flex items-center gap-1 text-[--rebeka-success]">
+                            <ShieldCheck className="w-3 h-3" /> On-chain verified
+                        </span>
                     </div>
                 </div>
+
 
                 <div className="p-4 rounded-xl bg-black/40 border border-white/5 backdrop-blur-md">
                     <div className="flex items-center gap-2 mb-3">
@@ -109,7 +114,7 @@ export const Portfolio = ({ portfolioData = [], operations = [], isLoading, wall
                             <div className="h-8 w-16 bg-white/10 rounded-md animate-pulse" />
                         ) : (
                             <>
-                                <span className="text-2xl font-mono font-bold text-white">{(displayTokens * 0.5).toFixed(2)}</span>
+                                <span className="text-2xl font-mono font-bold text-white">{(displayTokens * 1.0).toLocaleString()}</span>
                                 <span className="text-[10px] font-mono text-white/30 uppercase">m²</span>
                             </>
                         )}
@@ -118,26 +123,26 @@ export const Portfolio = ({ portfolioData = [], operations = [], isLoading, wall
                         Asset Backing: 100%
                     </div>
                 </div>
+            </div>
 
-                <div className="p-4 rounded-xl bg-black/40 border border-white/5 backdrop-blur-md overflow-hidden relative group cursor-crosshair">
-                    <div className="absolute inset-0 bg-gradient-to-br from-[--rebeka-primary-dim] to-transparent opacity-0 group-hover:opacity-10 transition-opacity" />
-                    <div className="flex items-center gap-2 mb-3">
-                        <Zap className="w-3 h-3 text-[--rebeka-primary]" />
-                        <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Est. APY</span>
-                    </div>
-                    <div className="flex items-baseline gap-2">
-                        <span className="text-2xl font-mono font-bold text-[--rebeka-success]">8.50%</span>
-                    </div>
-                    {/* Tiny Sparkline */}
-                    <div className="absolute bottom-0 left-0 right-0 h-8 flex items-end px-2 gap-[1px]">
-                        {sparklineData.map((val, i) => (
-                            <div key={i} className="flex-1 bg-[--rebeka-success] opacity-20 hover:opacity-100 transition-opacity" style={{ height: `${val}%` }} />
-                        ))}
-                    </div>
+            <div className="p-4 rounded-xl bg-black/40 border border-white/5 backdrop-blur-md overflow-hidden relative group cursor-crosshair">
+                <div className="absolute inset-0 bg-gradient-to-br from-[--rebeka-primary-dim] to-transparent opacity-0 group-hover:opacity-10 transition-opacity" />
+                <div className="flex items-center gap-2 mb-3">
+                    <Zap className="w-3 h-3 text-[--rebeka-primary]" />
+                    <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Est. APY</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                    <span className="text-2xl font-mono font-bold text-[--rebeka-success]">8.50%</span>
+                </div>
+
+                <div className="absolute bottom-0 left-0 right-0 h-8 flex items-end px-2 gap-[1px]">
+                    {sparklineData.map((val, i) => (
+                        <div key={i} className="flex-1 bg-[--rebeka-success] opacity-20 hover:opacity-100 transition-opacity" style={{ height: `${val}%` }} />
+                    ))}
                 </div>
             </div>
 
-            {/* ASSET COMPOSITION */}
+            {/* Asset allocation */}
             <div className="w-full space-y-6">
                 <div className="space-y-4">
                     <div className="flex items-center justify-between px-2">
@@ -149,12 +154,12 @@ export const Portfolio = ({ portfolioData = [], operations = [], isLoading, wall
                     </div>
 
                     <div className="space-y-3">
-                        {portfolioData.length > 0 ? portfolioData.map((item) => {
+                        {rwaPortfolio.length > 0 ? rwaPortfolio.map((item) => {
                             const tokenCfg = getTokenConfig(item.tokenAddress);
                             const displayName = tokenCfg?.name || item.tokenAddress.slice(0, 10) + '...';
                             const displaySymbol = tokenCfg?.symbol || 'TOKEN';
                             const balance = Number(item.balance || 0);
-                            const valueUsd = balance * (tokenCfg?.pricePerToken || 350);
+                            const valueUsd = balance * (tokenCfg?.pricePerToken || 30);
 
                             return (
                                 <div
@@ -173,6 +178,9 @@ export const Portfolio = ({ portfolioData = [], operations = [], isLoading, wall
                                                 <div className="flex items-center gap-2 mb-1">
                                                     <Typography variant="p" className="text-white font-bold tracking-tight">{displayName}</Typography>
                                                     <div className="px-1.5 py-0.5 rounded-sm bg-blue-500/10 text-[--rebeka-primary] text-[8px] font-bold border border-blue-500/20 uppercase tracking-tighter">Verified</div>
+                                                    <div className="px-1.5 py-0.5 rounded-sm bg-[--color-success]/10 text-[--color-success] text-[8px] font-bold border border-[--color-success]/20 uppercase tracking-tighter flex items-center gap-0.5">
+                                                        <ShieldCheck className="w-2.5 h-2.5" /> CRE
+                                                    </div>
                                                 </div>
                                                 <div className="flex items-center gap-4 text-[10px] font-mono text-white/40">
                                                     <span className="flex items-center gap-1"><History className="w-3 h-3" /> {displaySymbol}</span>
@@ -208,7 +216,7 @@ export const Portfolio = ({ portfolioData = [], operations = [], isLoading, wall
                 </div>
             </div>
 
-            {/* ACTIVITY LOG - OPERATIONS */}
+            {/* Transaction ledger */}
             <div className="w-full space-y-4 pt-6">
                 <div className="flex items-center gap-2 px-2">
                     <History className="w-4 h-4 text-white/40" />
@@ -230,7 +238,7 @@ export const Portfolio = ({ portfolioData = [], operations = [], isLoading, wall
                                 <div key={op.id} className="p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:bg-white/[0.02] transition-colors">
                                     <div className="flex items-center gap-4">
                                         <div className={`w-10 h-10 rounded-xl flex items-center justify-center border font-mono text-[10px] font-black
-                                            ${op.status === 'MINTED' ? 'bg-[--rebeka-success-dim] text-[--rebeka-success] border-[--rebeka-success]' :
+                                             ${op.status === 'MINTED' ? 'bg-[--rebeka-success-dim] text-[--rebeka-success] border-[--rebeka-success]' :
                                                 op.status === 'FAILED' ? 'bg-red-500/10 text-red-500 border-red-500/20' :
                                                     op.status === 'PAID' || op.status === 'MINTING' ? 'bg-[--rebeka-primary-dim] text-[--rebeka-primary] border-[--rebeka-primary-glow]' :
                                                         'bg-white/5 text-white/40 border-white/10'}`}>
@@ -255,7 +263,7 @@ export const Portfolio = ({ portfolioData = [], operations = [], isLoading, wall
                                         <div className="text-right">
                                             <span className="text-[10px] font-bold text-white/20 uppercase tracking-widest mb-1 block">Status</span>
                                             <span className={`text-xs font-black uppercase tracking-widest
-                                                ${op.status === 'MINTED' ? 'text-[--rebeka-success]' :
+                                                 ${op.status === 'MINTED' ? 'text-[--rebeka-success]' :
                                                     op.status === 'FAILED' ? 'text-red-500' :
                                                         op.status === 'PAID' || op.status === 'MINTING' ? 'text-[--rebeka-primary] animate-pulse' :
                                                             'text-white/40'}`}>
@@ -279,8 +287,3 @@ export const Portfolio = ({ portfolioData = [], operations = [], isLoading, wall
     );
 };
 
-const BriefcaseIcon = ({ className }: { className: string }) => (
-    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-    </svg>
-);

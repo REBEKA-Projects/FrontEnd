@@ -29,7 +29,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
     }), []);
 
     const config = useMemo(() => ({
-        appName: "REBEKA",
+        appName: "FIDUCCI",
     }), []);
 
     const paraModalConfig = useMemo(() => ({

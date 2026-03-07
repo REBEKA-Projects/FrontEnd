@@ -1,10 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Typography } from "@/components/atoms/Typography";
+import { Typography, GlassCard } from "@/components/atoms";
 import { Loader2, CheckCircle2, AlertCircle, Cpu, ShieldCheck, ArrowRight } from "lucide-react";
 import { useUserData } from "@/hooks/useUserData";
-import { GlassCard } from "@/components/GlassCard";
 
 interface ProcessingModalProps {
     operationId: string;
@@ -54,7 +53,7 @@ export const ProcessingModal = ({ operationId, onClose, onSuccess }: ProcessingM
         <div className="fixed inset-0 z-[120] flex items-center justify-center p-4">
             <div className="absolute inset-0 bg-black/90 backdrop-blur-2xl animate-fade-in" />
 
-            <div className="relative w-full max-w-md animate-fade-in-up">
+            <div className="relative w-full max-md animate-fade-in-up">
                 <GlassCard className="p-10 border-white/10 text-center space-y-8 overflow-hidden" hover={false}>
                     {isPolling && (
                         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[--rebeka-primary] to-transparent animate-scan" />
@@ -145,7 +144,7 @@ export const ProcessingModal = ({ operationId, onClose, onSuccess }: ProcessingM
                     <div className="pt-6 border-t border-white/5">
                         <div className="flex items-center justify-center gap-4 text-[8px] font-black text-white/5 uppercase tracking-[0.4em]">
                             <span className="flex items-center gap-1"><ShieldCheck className="w-2 h-2" /> ARBITRUM_L2_SECURE</span>
-                            <span className="flex items-center gap-1"><ShieldCheck className="w-2 h-2" /> REBEKA_FHE_PROTOCOL</span>
+                            <span className="flex items-center gap-1"><ShieldCheck className="w-2 h-2" /> FIDUCCI_FHE_PROTOCOL</span>
                         </div>
                     </div>
                 </GlassCard>

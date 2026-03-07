@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useUserData } from "@/hooks/useUserData";
 import { useIsAllowed, useTokenBalance, useTokenInfo } from "@/lib/web3/hooks";
-import { Typography } from "@/components/atoms/Typography";
+import { Typography } from "@/components/atoms";
 import { ArrowRight, ArrowUpRight, Layers, ShieldCheck, ShieldX, Activity } from "lucide-react";
 import { formatUnits } from "viem";
 

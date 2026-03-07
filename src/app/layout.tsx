@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono, Playfair_Display } from "next/font/google";
-import { AppProviders } from "@/components/templates/AppProviders";
+import { Inter, JetBrains_Mono, Montserrat } from "next/font/google";
+import { AppProviders } from "@/components/templates";
+import { Header } from "@/components/organisms";
 import "./globals.css";
 
 const inter = Inter({
@@ -15,7 +16,7 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
-const playfair = Playfair_Display({
+const montserrat = Montserrat({
   variable: "--font-heading",
   subsets: ["latin"],
   display: "swap",
@@ -23,20 +24,20 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  metadataBase: process.env.NEXT_PUBLIC_SITE_URL ? new URL(process.env.NEXT_PUBLIC_SITE_URL) : new URL('https://rebeka.fi'),
-  title: "REBEKA | Real Estate Blockchain Ekosystem Arbitrum",
-  description: "Bridging institutional real estate with on-chain liquidity on Arbitrum Sepolia. Fractional investment in premium assets through the REBEKA Protocol.",
-  keywords: ["RWA", "Real Estate", "Arbitrum", "Sepolia", "Tokenization", "DeFi", "Blockchain", "REBEKA"],
-  authors: [{ name: "REBEKA Protocol" }],
+  metadataBase: process.env.NEXT_PUBLIC_SITE_URL ? new URL(process.env.NEXT_PUBLIC_SITE_URL) : new URL('https://fiducci.io'),
+  title: "FIDUCCI | The Trust Stack for Real World Assets",
+  description: "Institutional-Grade Tokenization as a Service. Transparent. Secure. Liquid. Powered by Chainlink CRE on Arbitrum.",
+  keywords: ["RWA", "Real Estate", "Arbitrum", "Tokenization", "DeFi", "Blockchain", "FIDUCCI", "Chainlink CRE", "TaaS"],
+  authors: [{ name: "FIDUCCI Protocol" }],
   openGraph: {
-    title: "REBEKA | Real Estate Blockchain Ekosystem Arbitrum",
-    description: "Bridging institutional real estate with on-chain liquidity on Arbitrum Sepolia.",
+    title: "FIDUCCI | The Trust Stack for Real World Assets",
+    description: "Institutional-Grade Tokenization as a Service. Transparent. Secure. Liquid.",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "REBEKA | Real Estate Blockchain Ekosystem Arbitrum",
-    description: "Bridging institutional real estate with on-chain liquidity on Arbitrum Sepolia.",
+    title: "FIDUCCI | The Trust Stack for Real World Assets",
+    description: "Institutional-Grade Tokenization as a Service. Transparent. Secure. Liquid.",
   },
 };
 
@@ -48,9 +49,10 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`${inter.variable} ${jetbrainsMono.variable} ${playfair.variable} antialiased noise`}
+        className={`${inter.variable} ${jetbrainsMono.variable} ${montserrat.variable} antialiased noise`}
       >
         <AppProviders>
+          <Header />
           {children}
         </AppProviders>
       </body>

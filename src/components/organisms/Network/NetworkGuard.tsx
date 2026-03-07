@@ -3,9 +3,7 @@
 import { useEffect, useState } from "react";
 import { useAccount, useChainId, useSwitchChain } from "wagmi";
 import { arbitrumSepolia } from "viem/chains";
-import { GlassCard } from "@/components/GlassCard";
-import { Typography } from "@/components/atoms/Typography";
-import { Button } from "@/components/atoms/Button";
+import { Typography, Button, GlassCard } from "@/components/atoms";
 import { AlertTriangle, ArrowRight, Wifi } from "lucide-react";
 
 const TARGET_CHAIN = arbitrumSepolia;
