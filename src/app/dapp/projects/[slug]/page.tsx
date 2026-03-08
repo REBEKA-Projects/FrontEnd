@@ -1,12 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from 'next/navigation';
-import { ChainlinkVerificationPanel, AssetBuySidebar } from '@/components/organisms';
+import { AssetBuySidebar, ProjectTabs } from '@/components/organisms';
 import { GlassCard, Typography } from '@/components/atoms';
 import { getProjectBySlug, ProjectItem } from '@/lib/data/projects';
-import { MapPin, ShieldCheck, ArrowRight, Zap, Target, Home } from "lucide-react";
-import Link from 'next/link';
-import { SatelliteMap } from '@/components/molecules';
-import { MOCK_ORACLE, MOCK_AUDIT_LOGS } from '@/lib/chainlink-mock-data';
+import { MapPin, Home, Target } from "lucide-react";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;
@@ -96,169 +93,13 @@ export default async function ProjectDetailTemplate({ params }: { params: Promis
                             <span className="text-3xl font-mono font-bold text-[--rebeka-success] drop-shadow-[0_0_10px_var(--rebeka-success-dim)]">{project.exitStrategy.horizon.split(' ')[0]} <span className="text-sm font-sans text-[--rebeka-success]/60 ml-1">Years</span></span>
                         </div>
                     </GlassCard>
-
-                    {/* Elevated Trust Anchor (Chainlink) - Desktop Only (Mobile flows in column) */}
-                    <div className="hidden lg:block">
-                        <ChainlinkVerificationPanel
-                            oracleData={MOCK_ORACLE}
-                            auditLogs={MOCK_AUDIT_LOGS}
-                            tokenPrice={project.specs.pricePerToken}
-                            totalValuation={6_100_000}
-                            totalSupply={200_000}
-                            autoPlay={true}
-                        />
-                    </div>
                 </div>
             </section>
 
             {/* ═══ BENTO BOX LAYOUT ═══ */}
             <div className="max-w-6xl mx-auto px-6 mt-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 pb-24">
-                <div className="lg:col-span-8 space-y-10 lg:space-y-16">
-
-                    {/* Mobile Chainlink Panel */}
-                    <div className="block lg:hidden">
-                        <ChainlinkVerificationPanel
-                            oracleData={MOCK_ORACLE}
-                            auditLogs={MOCK_AUDIT_LOGS}
-                            tokenPrice={project.specs.pricePerToken}
-                            totalValuation={6_100_000}
-                            totalSupply={200_000}
-                            autoPlay={true}
-                        />
-                    </div>
-
-                    {/* 1. Financial Engineering & Strategy */}
-                    <section className="space-y-6 opacity-0 animate-[fade-in-up_0.8s_ease-out_forwards_0.3s]">
-                        <div className="flex items-center gap-3">
-                            <Zap className="w-5 h-5 text-[--rebeka-primary]" />
-                            <Typography variant="h2" className="text-xl font-bold text-white m-0 tracking-tight">
-                                Financial Engineering
-                            </Typography>
-                        </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            {/* Thesis Description Card - Spans full width */}
-                            <div className="md:col-span-2 p-6 bg-white/[0.02] border border-white/5 rounded-2xl">
-                                <Typography variant="p" className="text-[13px] text-white/70 leading-relaxed m-0">
-                                    {project.thesis.description}
-                                </Typography>
-                            </div>
-
-                            {/* Acquisition Cost */}
-                            <div className="p-6 bg-gradient-to-br from-[--rebeka-primary-dim] to-transparent border border-[--rebeka-primary-glow] rounded-2xl relative overflow-hidden group">
-                                <span className="block text-[10px] uppercase font-black tracking-widest text-[--rebeka-primary] mb-2">Base Acquisition Cost</span>
-                                <span className="text-2xl font-mono font-bold text-white">{project.thesis.acquisitionCost}</span>
-                            </div>
-
-                            {/* Liquidation */}
-                            <div className="p-6 bg-white/[0.02] border border-white/5 rounded-2xl">
-                                <span className="block text-[10px] uppercase font-black tracking-widest text-white/30 mb-2">Forced Liquidation</span>
-                                <span className="text-[13px] font-medium text-white/90 leading-snug block">{project.exitStrategy.forcedExit}</span>
-                            </div>
-
-                            {/* Spread Utility Mechanism */}
-                            <div className="md:col-span-2 p-5 bg-black/40 border-t border-t-[--rebeka-primary]/20 border-white/5 rounded-2xl border-l-2 border-l-[--rebeka-primary]">
-                                <span className="text-[10px] uppercase font-black tracking-[0.2em] text-[--rebeka-primary] mb-1.5 block">Spread Utility Mechanism</span>
-                                <span className="text-[13px] text-white/80 font-medium leading-relaxed block">
-                                    {project.thesis.spreadFunction}
-                                </span>
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* 2. Legal Framework & Geography */}
-                    <section className="space-y-6">
-                        <div className="flex items-center gap-3">
-                            <ShieldCheck className="w-5 h-5 text-[--rebeka-success]" />
-                            <Typography variant="h2" className="text-xl font-bold text-white m-0 tracking-tight">
-                                Legal Framework & Geography
-                            </Typography>
-                        </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            {/* Legal Grid */}
-                            <div className="space-y-4">
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div className="p-4 bg-white/[0.02] border border-white/5 rounded-xl">
-                                        <span className="block text-[9px] font-black text-white/30 uppercase tracking-widest mb-1.5">Legal Vehicle</span>
-                                        <span className="text-xs text-white font-medium leading-snug">{project.legal.documentName}</span>
-                                    </div>
-                                    <div className="p-4 bg-white/[0.02] border border-white/5 rounded-xl">
-                                        <span className="block text-[9px] font-black text-white/30 uppercase tracking-widest mb-1.5">Fiduciary</span>
-                                        <span className="text-xs text-white font-medium leading-snug">{project.legal.fiduciary}</span>
-                                    </div>
-                                </div>
-                                <div className="p-4 bg-white/[0.02] border border-white/5 rounded-xl">
-                                    <span className="block text-[9px] font-black text-white/30 uppercase tracking-widest mb-1">Public Registry Folio</span>
-                                    <span className="text-xs font-mono text-white/80">{project.legal.folio}</span>
-                                </div>
-                                <div className="p-4 bg-white/[0.02] border border-white/5 rounded-xl">
-                                    <span className="block text-[9px] font-black text-white/30 uppercase tracking-widest mb-1">Public Deed & Notary</span>
-                                    <span className="text-[11px] leading-snug text-white/80 block">{project.legal.notary}</span>
-                                </div>
-                                {/* IPFS Button */}
-                                <a
-                                    href="https://ipfs.io/ipfs/QmXoypizjW3WknFiJnKLwHCnL72vedxjQkDDP1mXWo6uco"
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[--rebeka-success]/10 to-transparent border border-[--rebeka-success]/20 flex items-center justify-center gap-2 hover:bg-[--rebeka-success]/20 transition-all group/link"
-                                >
-                                    <ShieldCheck className="w-4 h-4 text-[--rebeka-success] group-hover/link:scale-110 transition-transform" />
-                                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[--rebeka-success]">View Trust Deed (IPFS)</span>
-                                </a>
-                            </div>
-
-                            {/* Map */}
-                            <div className="h-full min-h-[300px] rounded-xl overflow-hidden border border-white/5">
-                                <SatelliteMap
-                                    lat={18.962399}
-                                    lng={-98.194782}
-                                    zoom={15}
-                                    label="Asset Location Vector"
-                                    className="w-full h-full"
-                                />
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* 3. Tokenomics */}
-                    <section className="space-y-6">
-                        <div className="flex items-center gap-3">
-                            <Target className="w-5 h-5 text-white/60" />
-                            <Typography variant="h2" className="text-xl font-bold text-white m-0 tracking-tight">
-                                Tokenomics
-                            </Typography>
-                        </div>
-
-                        <div className="p-6 md:p-8 bg-white/[0.02] border border-white/5 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-8 md:gap-4">
-                            <div>
-                                <span className="block text-[10px] font-black text-white/50 uppercase tracking-[0.2em] mb-2">Fixed Supply</span>
-                                <span className="text-3xl font-mono font-bold text-white">{project.tokenomics.supply.toLocaleString()}</span>
-                            </div>
-
-                            <div className="h-px w-full md:h-12 md:w-px bg-white/10 hidden md:block" />
-
-                            <div>
-                                <span className="block text-[10px] font-black text-white/50 uppercase tracking-[0.2em] mb-2">Asset Parity</span>
-                                <span className="text-sm font-medium text-[--rebeka-primary] px-3 py-1 bg-[--rebeka-primary-dim] rounded-md border border-[--rebeka-primary-glow]">{project.tokenomics.parity}</span>
-                            </div>
-
-                            <div className="h-px w-full md:h-12 md:w-px bg-white/10 hidden md:block" />
-
-                            <div className="flex flex-col gap-3">
-                                {[
-                                    { label: project.tokenomics.distribution.owner, color: 'bg-white' },
-                                    { label: project.tokenomics.distribution.core, color: 'bg-[--rebeka-primary]' },
-                                    { label: project.tokenomics.distribution.reserve, color: 'bg-[--rebeka-secondary]' }
-                                ].map((item, idx) => (
-                                    <div key={idx} className="flex items-center gap-3">
-                                        <div className={`w-1.5 h-1.5 rounded-full ${item.color} shadow-[0_0_8px_currentColor]`} />
-                                        <span className="text-[10px] uppercase font-bold tracking-widest text-white/60">{item.label}</span>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </section>
+                <div className="lg:col-span-8">
+                    <ProjectTabs project={project} />
                 </div>
 
                 {/* ═══ INTERACTIVE BUY SIDEBAR ═══ */}

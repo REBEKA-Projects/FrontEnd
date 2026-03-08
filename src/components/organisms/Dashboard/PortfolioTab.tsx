@@ -4,10 +4,9 @@ import { useRouter } from "next/navigation";
 import { useUserData } from "@/hooks/useUserData";
 import { useIsAllowed, useTokenBalance, useTokenInfo } from "@/lib/web3/hooks";
 import { Typography } from "@/components/atoms";
-import { ArrowRight, ArrowUpRight, Layers, ShieldCheck, ShieldX, Activity } from "lucide-react";
+import { ArrowUpRight, Layers, ShieldCheck, ShieldX, Activity } from "lucide-react";
 import { formatUnits } from "viem";
 
-// ─── On-chain Asset Card for the 'My Holdings' tab ───
 function OnChainAssetCard({ tokenAddress, walletAddress }: { tokenAddress: `0x${string}`; walletAddress: `0x${string}` | undefined }) {
     const router = useRouter();
     const { name, symbol, decimals, isLoading: isInfoLoading } = useTokenInfo(tokenAddress);
@@ -84,28 +83,13 @@ function OnChainAssetCard({ tokenAddress, walletAddress }: { tokenAddress: `0x${
     );
 }
 
-export default function PortfolioPage() {
+export function PortfolioTab() {
     const router = useRouter();
     const { data: userData } = useUserData();
     const walletAddr = userData?.user?.wallet as `0x${string}` | undefined;
 
     return (
-        <div className="space-y-12 animate-fade-in">
-            <header className="border-b border-white/5 pb-10">
-                <span className="text-[10px] text-white/20 uppercase font-bold tracking-[0.4em] block mb-4">Portfolio Units</span>
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-                    <Typography variant="h1" className="text-white font-bold text-5xl tracking-tighter leading-none uppercase">My <span className="text-gradient-primary">Portfolio</span></Typography>
-                    <div className="flex items-center gap-4">
-                        <button
-                            onClick={() => router.push('/dashboard/marketplace')}
-                            className="h-12 px-6 rounded-xl bg-white text-black font-black uppercase text-[10px] tracking-widest hover:bg-[--rebeka-primary] transition-all flex items-center gap-2"
-                        >
-                            Explore Marketplace <ArrowRight className="w-3.5 h-3.5" />
-                        </button>
-                    </div>
-                </div>
-            </header>
-
+        <div className="space-y-12 animate-fade-in mt-4">
             {userData?.portfolio && userData.portfolio.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {userData.portfolio.map((item) => (

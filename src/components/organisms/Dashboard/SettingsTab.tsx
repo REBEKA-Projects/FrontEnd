@@ -4,21 +4,14 @@ import { useUserData } from "@/hooks/useUserData";
 import { Typography } from "@/components/atoms";
 import { Shield, User, Settings, Bell, ArrowUpRight } from "lucide-react";
 
-export default function SettingsPage() {
+export function SettingsTab() {
     const { data: userData, isLoading } = useUserData();
 
     const investorEmail = userData?.user?.email || (isLoading ? "..." : "investor@example.com");
-    const investorId = userData?.user?.id || (isLoading ? "..." : "#728491-00"); // Backend will populate this
+    const investorId = userData?.user?.id || (isLoading ? "..." : "#728491-00");
 
     return (
-        <div className="space-y-12 animate-fade-in">
-            <header className="border-b border-white/5 pb-10">
-                <span className="text-[10px] text-white/20 uppercase font-bold tracking-[0.4em] block mb-4">Account Configuration</span>
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-                    <Typography variant="h1" className="text-white font-bold text-5xl tracking-tighter leading-none uppercase">Profile <span className="text-gradient-primary">Settings</span></Typography>
-                </div>
-            </header>
-
+        <div className="space-y-12 animate-fade-in mt-4">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
                 <div className="lg:col-span-12 max-w-4xl space-y-10">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

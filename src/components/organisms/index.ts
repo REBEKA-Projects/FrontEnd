@@ -13,3 +13,8 @@ export * from "./ChainlinkVerificationPanel";
 export * from "./BuyTokenModal";
 export * from "./AssetBuySidebar";
 export * from "./AuthGuard";
+export * from "./ProjectTabs";
+export * from "./Dashboard/DashboardTabs";
+export * from "./Dashboard/OverviewTab";
+export * from "./Dashboard/PortfolioTab";
+export * from "./Dashboard/SettingsTab";

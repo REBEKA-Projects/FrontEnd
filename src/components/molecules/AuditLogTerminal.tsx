@@ -55,9 +55,9 @@ export const AuditLogTerminal = ({ logs, autoPlay = true, intervalMs = 400 }: Au
         return () => clearTimeout(timer);
     }, [isRunning, visibleCount, logs.length, intervalMs]);
 
-    // Auto-scroll to bottom
+    // Auto-scroll to bottom securely without hijacking the whole window
     useEffect(() => {
-        bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+        bottomRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }, [visibleCount]);
 
     const visibleLogs = logs.slice(0, visibleCount);

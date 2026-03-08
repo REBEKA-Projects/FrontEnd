@@ -45,7 +45,7 @@ export const NetworkGuard = () => {
                             Wrong Network Detected
                         </Typography>
                         <Typography variant="caption" className="text-white/40 text-xs block">
-                            Switch to <span className="text-[--rebeka-primary] font-bold">Arbitrum Sepolia</span> to interact with Rebeka contracts.
+                            Switch to <span className="text-[--rebeka-primary] font-bold">Arbitrum Sepolia</span> to interact with FIDUCCI contracts.
                         </Typography>
                     </div>
                     <div className="flex items-center gap-2 shrink-0">

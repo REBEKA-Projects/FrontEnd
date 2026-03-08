@@ -62,7 +62,7 @@ export const projectsData: ProjectItem[] = [
             area: '200,000 m² (20 Hectares)',
             type: 'Land / Territorial Reserve (Mixed Use)',
             pricePerToken: 30.00,
-            totalValue: '$6,000,000.00 USD'
+            totalValue: '$6,000,000.00'
         },
         thesis: {
             description: 'Capital appreciation in a strategic growth zone, offering a tangible store of value against crypto market volatility.',

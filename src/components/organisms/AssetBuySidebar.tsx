@@ -22,7 +22,7 @@ export const AssetBuySidebar = ({ project }: AssetBuySidebarProps) => {
                     <div className="absolute -top-20 -right-20 w-40 h-40 bg-[--rebeka-primary] blur-[80px] opacity-20 pointer-events-none" />
 
                     <Typography variant="h3" className="text-xl font-bold text-white mb-2 tracking-tight">
-                        Initialize RWA Position
+                        Buy RWA Tokens
                     </Typography>
                     <Typography variant="p" className="text-[11px] text-white/40 mb-8 font-medium leading-relaxed">
                         Requires Identity Verification (KYC) through our Sovereign Permissioned Layer. Compliance enforced on-chain.

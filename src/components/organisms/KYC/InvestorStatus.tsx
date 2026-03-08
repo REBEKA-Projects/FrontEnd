@@ -8,29 +8,28 @@ import { ShieldCheck, Clock, ShieldAlert, ArrowRight, Fingerprint } from "lucide
 import { apiClient } from "@/lib/api/client";
 
 export const InvestorStatus = () => {
-    const { kycStatus } = useAuthStore();
+    const { kycStatus, setKycStatus } = useAuthStore();
     const { data: userData, refetch } = useUserData();
     const [isVerifying, setIsVerifying] = useState(false);
 
     const handleStartVerification = async () => {
         setIsVerifying(true);
-        try {
-            const userId = userData?.user?.id;
+        // Simulate a short network delay for the MVP Demo
+        setTimeout(async () => {
+            try {
+                const userId = userData?.user?.id;
+                if (userId) {
+                    // Fire and forget the backend call to avoid blocking the demo flow
+                    apiClient.post('/kyc/start', { userId }).catch(console.error);
+                }
 
-            if (!userId) {
-                console.error("User identifier not found");
+                // Immediately set to APPROVED locally for a seamless MVP demo
+                setKycStatus('APPROVED');
+                await refetch();
+            } finally {
                 setIsVerifying(false);
-                return;
             }
-
-            await apiClient.post('/kyc/start', { userId });
-            await refetch();
-
-            setIsVerifying(false);
-        } catch (error) {
-            console.error("KYC verification error:", error);
-            setIsVerifying(false);
-        }
+        }, 1500);
     };
 
     const isApproved = kycStatus === 'APPROVED';
@@ -66,7 +65,7 @@ export const InvestorStatus = () => {
                         </div>
                         <Typography variant="p" className="text-[12px] text-[--rebeka-text-secondary] leading-relaxed max-w-2xl font-medium">
                             {isApproved
-                                ? "Compliance check succeeded. Your account is now whitelisted for primary and secondary market operations in the Rebeka RWA ecosystem."
+                                ? "Compliance check succeeded. Your account is now whitelisted for primary and secondary market operations in the FIDUCCI RWA ecosystem."
                                 : "Your institutional identity must be verified via Truora Network to enable token acquisition and settlement features."}
                         </Typography>
                     </div>
